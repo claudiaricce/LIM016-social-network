@@ -1,8 +1,4 @@
-//Componentes para autenticación de firebase
+/* =====> REGISTRO DE NUEVO USUARIO <====== */
+import { auth, createUserWithEmailAndPassword } from "./config.js";
 
-//creación de usuario - REGISTRO
-export function createUser(email, pass) {
-    const auth = firebase.auth();
-    return auth.createUserWithEmailAndPassword(email, pass);
-  }
-  
+export const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
