@@ -5,7 +5,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.5/firebase
 import {
     getAuth,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    sendEmailVerification
 } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-auth.js";
 
 // La configuración de Firebase de tu aplicación web
@@ -26,6 +27,7 @@ export const auth = getAuth(app);
 export {
     getAuth,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    sendEmailVerification
 };
 
