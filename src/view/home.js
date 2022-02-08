@@ -1,21 +1,22 @@
 import { templateFooter } from './footer.js'
 import { templateHeader } from './header.js'
 
-
-const templateHome =
-    `<section class="homePage">
-        <div class="fotoPerfil">
-            <img src="" alt="foto">
-        </div>
-        <div class="insertarPublicacion">
-            <input id="insertarPublicacion" class="inputInsertarPublicacion" name="insertarPublicacion" type="text" placeholder="¿Que quieres compartir?"/><br>
-            <button type="submit" class="btn-publicar" id="btn-publicar">
-                Publicar
-            </button>
-        </div>
+export const home =() => {
+    const templateHome= `
+    <section class="homePage">
+    <div class="fotoPerfil"><img src="" alt="foto"></div>
+    <div class="insertarPublicacion">
+        <input id="insertarPublicacion" class="inputInsertarPublicacion" name="insertarPublicacion" type="text" placeholder="¿Que quieres compartir?"/><br>
+        <button type="submit" class="btn-publicar" id="btn-publicar">
+            Publicar
+        </button>
+    </div>
     </section>`
 
-const templatePost =
+    const divElement = document.createElement('div');
+    divElement.innerHTML= templateHome;
+
+    const templatePost =
     `<div class="container_post">
         <div class="header_post">
             <aside class="title_post">
@@ -47,11 +48,11 @@ const templatePost =
         </div>
     </div>`
 
-const viewHome = () => {
-    const home = document.getElementById('app');
     const homePage = document.createElement('article');
     homePage.classList.add('article-home');
     home.appendChild(homePage);
     homePage.innerHTML = templateHeader + templateHome + templatePost + templateFooter
-}
-viewHome()
+
+    return homePage;
+};
+
