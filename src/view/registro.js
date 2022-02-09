@@ -8,9 +8,9 @@ export const register = () => {
             <h1>
                 Registrate
             </h1>
-            <input id="name" class="form" name="nombre" type="text" placeholder="Nombre completo"/>
-            <input id="email" class="form" name="email" type="email" placeholder="example@gmail.com"/>
-            <input id="password" class="form" name="contraseña" type="password" placeholder="**********" />
+            <input id="name" class="typeText" name="nombre" type="text" placeholder="Nombre completo"/>
+            <input id="email" class="typeEmail" name="email" type="email" placeholder="example@gmail.com"/>
+            <input id="password" class="typePassword" name="contraseña" type="password" placeholder="**********" />
             <p id="error-message" style="display:none"></p>
             <h5 class="textPrivacidad">
                 Al hacer clic en registrarte, aceptas nuestras Condiciones, Política de datos y la política de cookies. 
