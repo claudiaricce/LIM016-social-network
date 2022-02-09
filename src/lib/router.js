@@ -1,8 +1,9 @@
+
 import { components } from '../view/components.js';
 
 const changeView = (route) => {
   const container = document.getElementById('app');
-  container.innerHTML= '';
+  container.innerHTML = '';
 
   switch (route) {
     case '':
@@ -11,16 +12,16 @@ const changeView = (route) => {
      break;
     }
     case '#/register': {
-    container.appendChild(components.Registro());
+      container.appendChild(components.Registro());
       break;
     }
     case '#/home': {
-    container.appendChild(components.Home());
+      container.appendChild(components.Home());
       break;
     }
     default:
-     container.appendChild(components.Different());
-     break;
+      container.appendChild(components.Different());
+      break;
   }
 };
 export { changeView }

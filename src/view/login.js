@@ -24,10 +24,12 @@ export const login =() => {
         </div>
         `
   const divLogin = document.createElement('div');
-  divLogin.innerHTML= templateLogin;
-     
+  divLogin.innerHTML = templateLogin;
+
   const boton_SignIn = divLogin.querySelector('#btn2');
-  boton_SignIn.addEventListener('click', () => {
+  boton_SignIn.addEventListener('click', (e) => {
+    e.preventDefault()
+    window.location.hash = '#/home';
 
         const emailSignIn2 = divLogin.querySelector('#email2').value;
         const passwordSignIn2 = divLogin.querySelector('#password2').value;
@@ -77,5 +79,5 @@ export const login =() => {
     window.location.hash = '#/register';
   });
 
-return divLogin;
+  return divLogin;
 };

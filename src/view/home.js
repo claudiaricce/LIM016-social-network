@@ -1,8 +1,8 @@
 import { templateFooter } from './footer.js'
 import { templateHeader } from './header.js'
 
-export const home =() => {
-    const templateHome= `
+export const home = () => {
+    const templateHome = `
     <section class="homePage">
     <div class="fotoPerfil"><img src="" alt="foto"></div>
     <div class="insertarPublicacion">
@@ -14,10 +14,10 @@ export const home =() => {
     </section>`
 
     const divElement = document.createElement('div');
-    divElement.innerHTML= templateHome;
+    divElement.innerHTML = templateHome;
 
     const templatePost =
-    `<div class="container_post">
+        `<div class="container_post">
         <div class="header_post">
             <aside class="title_post">
                 <h1 class="title">Publicado por:  ... </h1>

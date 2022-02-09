@@ -9,7 +9,7 @@
     color: slateblue;
 }
 
-.containerLogo, .containerInicio {
+.containerInicio, .containerLogo {
     display: flex;
     justify-content: space-between;
     align-items: center;
