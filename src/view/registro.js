@@ -1,10 +1,11 @@
+
 import { createUser, verificateEmail } from '../firebase/firebaseFunciones.js'
 
 export const register = () => {
     const sectionSignUp = document.createElement('section');
     sectionSignUp.classList.add('sectionSignUp'); //la clase para la section 
     sectionSignUp.innerHTML = `
-        <form class="divSignUp">
+        <form id="signUp" class="divSignUp">
             <h1>
                 Registrate
             </h1>
@@ -42,6 +43,7 @@ export const register = () => {
         const nameUserNew = sectionSignUp.querySelector('#name').value;
         const emailSignUp = sectionSignUp.querySelector('#email').value;
         const passwordSignUp = sectionSignUp.querySelector('#password').value;
+        const FormSignUp = sectionSignUp.querySelector('#signUp');
 
         /************Variable que contiene el método que permite registrar un usuario nuevo***********/
         createUser(emailSignUp, passwordSignUp)
@@ -69,20 +71,23 @@ export const register = () => {
 
                 if (errorCode === 'auth/invalid-email') {
                     errorMessage.textContent = 'Debes completar todos los campos';
-
+                    FormSignUp.reset();
                 }
                 if (errorCode === 'auth/email-already-in-use') {
                     errorMessage.textContent = 'El correo ingresado ya se encuentra registrado';
-
+                    FormSignUp.reset();
                 }
                 if (errorCode === 'auth/weak-password') {
                     errorMessage.textContent = 'La contraseña debe tener al menos 6 caracteres';
+                    FormSignUp.reset();
                 }
                 if (errorCode === 'auth/internal-error') {
                     errorMessage.textContent = 'Debe ingresar una contraseña válida'
+                    FormSignUp.reset();
                 }
                 if (errorCode === 'auth/missing-email') {
                     errorMessage.textContent = 'Debes ingresar una cuenta de correo electrónico'
+                    FormSignUp.reset();
                 }
             });
     });
