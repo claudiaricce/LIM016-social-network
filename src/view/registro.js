@@ -1,16 +1,16 @@
-import { createUser } from '../firebase/firebaseFunciones.js'
+import { createUser, verificateEmail } from '../firebase/firebaseFunciones.js'
 
 export const register = () => {
     const sectionSignUp = document.createElement('section');
     sectionSignUp.classList.add('sectionSignUp'); //la clase para la section 
     sectionSignUp.innerHTML = `
-        <div class="divSignUp">
+        <form class="divSignUp">
             <h1>
                 Registrate
             </h1>
-            <input id="name" class="form" name="nombre" type="text" placeholder="Nombre completo" required/>
-            <input id="email" class="form" name="email" type="email" placeholder="email" required/>
-            <input id="password" class="form" name="contraseña" type="password" placeholder="********** " required/>
+            <input id="name" class="form" name="nombre" type="text" placeholder="Nombre completo"/>
+            <input id="email" class="form" name="email" type="email" placeholder="example@gmail.com"/>
+            <input id="password" class="form" name="contraseña" type="password" placeholder="**********" />
             <p id="error-message" style="display:none"></p>
             <h5 class="textPrivacidad">
                 Al hacer clic en registrarte, aceptas nuestras Condiciones, Política de datos y la política de cookies. 
@@ -24,7 +24,7 @@ export const register = () => {
                         Ingresar
                     </a>
             </span>
-        </div>
+        </form>
 
         <!--Este es el modal de información-->
      <div class="modal-container" style="display: none">
@@ -51,9 +51,16 @@ export const register = () => {
                 const modal = document.querySelector('.modal-container');
                 modal.style.display = 'inline';
                 const message = document.getElementById('message');
-                message.innerText = `Bienvenido ${nameUserNew}, hemos enviado un correo para verificar tu cuenta`;
+                message.innerText = `Bienvenido, ${nameUserNew} hemos enviado un correo para verificar tu cuenta`;
+                /****Envio de email al usuario*****/
+                verificateEmail(emailSignUp, passwordSignUp, nameUserNew)
+                    .then(() => {
+                        console.log('El usuario ha sido registrado satisfactoriamente');
+                    })
+                    .catch((error) => {
+                        console.log(error, 'No se pudo completar el registro del usuario');
+                    });
             })
-
             .catch((error) => {
                 const errorCode = error.code;
                 console.log(errorCode);
@@ -91,6 +98,5 @@ export const register = () => {
         btnModal.style.display = 'none';
         window.location.hash = '#/';
     });
-
     return sectionSignUp;
 };
