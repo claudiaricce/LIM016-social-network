@@ -1,4 +1,4 @@
-import { components } from '../view/index.js'
+import { components } from '../view/components.js';
 
 const changeView = (route) => {
   const container = document.getElementById('app');
@@ -7,7 +7,7 @@ const changeView = (route) => {
   switch (route) {
     case '#/': {
     container.appendChild(components.Login());
-      break;
+     break;
     }
     case '#/register': {
     container.appendChild(components.Registro());

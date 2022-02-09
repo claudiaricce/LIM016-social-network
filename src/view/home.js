@@ -50,7 +50,6 @@ export const home =() => {
 
     const homePage = document.createElement('article');
     homePage.classList.add('article-home');
-    home.appendChild(homePage);
     homePage.innerHTML = templateHeader + templateHome + templatePost + templateFooter
 
     return homePage;
