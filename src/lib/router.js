@@ -5,6 +5,7 @@ const changeView = (route) => {
   container.innerHTML= '';
 
   switch (route) {
+    case '':
     case '#/': {
     container.appendChild(components.Login());
      break;

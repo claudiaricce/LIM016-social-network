@@ -9,13 +9,13 @@ export const login =() => {
         <p>Bienvenid@s</p>
         <h1>Glow App</h1>
         <p>Queremos ver tu mejor versión</p>
+        <form id="login">
         <input id="email2" class="form" name="email" type="email" placeholder="....@gmail.com " required/>
-        <p id="errorEmail" class="errorLogin" style = "visibility: hidden">Cuenta no encontrada o incorrecta</p>
         <input id="password2" class="stylepass" type="password" placeholder="**********" minlength="5" required/>
-        <p id="errorPass" class="errorPass" style = "visibility: hidden">Contraseña incorrecta</p>
         <button type="submit" class="btn2" id="btn2">Acceder</button>
         <p id="verified" class="everified"></p>
         </div>
+        </form>
         <div id="lastContainer class="lastContainers">
         <p class="enter"> O inicia sesión con: </p>
         <p id="gh">github </p>
@@ -32,8 +32,7 @@ export const login =() => {
         const emailSignIn2 = divLogin.querySelector('#email2').value;
         const passwordSignIn2 = divLogin.querySelector('#password2').value;
         const errorVerified = divLogin.querySelector('#verified');
-        const errorPassword= divLogin.querySelector('#errorPass');
-        const errorEmail= divLogin.querySelector('#errorEmail');
+        const cleanForm= divLogin.querySelector('#login');
 
         loginApp(emailSignIn2, passwordSignIn2)
         .then((usuario)=>{
@@ -42,9 +41,9 @@ export const login =() => {
                 window.location.hash = '#/home';
                 console.log('Usuario logueado');
             } else {
-                window.location.hash = '#/';
-                // muestra mensaje de error si no verifico por correo
-                errorVerified.innerHTML='Error, cuenta no verificada';
+              // muestra mensaje de error si no verifico por correo
+              errorVerified.innerHTML='Error, cuenta no verificada';
+              cleanForm.reset();
             }
         })
         .catch(function(error){
@@ -53,14 +52,19 @@ export const login =() => {
             //Validaciones de los campos
             if (emailSignIn2 === '' || passwordSignIn2 === '') {
                 errorVerified.innerHTML= 'Debes completar todos los campos';
+                cleanForm.reset();
               } else if (emailSignIn2 !== '' && errorCode === 'auth/invalid-email') {
-                errorEmail.textContent= 'La dirección de correo electrónico no es válida';
+                errorVerified.innerHTML= 'La dirección de correo electrónico no es válida';
+                cleanForm.reset();
               } else if (errorCode === 'auth/user-disabled') {
                 errorVerified.innerHTML= 'El usuario esta desactivado';
+                cleanForm.reset();
               } else if (errorCode === 'auth/user-not-found') {
-                errorEmail.style.visibility = 'visible';
+                errorVerified.innerHTML = 'Cuenta no encontrada o incorrecta';
+                cleanForm.reset();
               } else if (errorCode === 'auth/wrong-password') {
-                errorPassword.style.visibility = 'visible';
+                errorVerified.innerHTML = 'Contraseña incorrecta';
+                cleanForm.reset();
               }
 
             console.log(errorCode, errorMessage)

@@ -9,9 +9,9 @@ export const register= () => {
      sectionSignUp.appendChild(divSignUp);
      divSignUp.innerHTML = `
         <h1>Registrate</h1>
-        <input id="name" class="form" name="nombre" type="text" placeholder="Nombre completo" required/>
-        <input id="email" class="form" name="email" type="email" placeholder="email" required/>
-        <input id="password" class="form" name="contraseña" type="password" placeholder="********** " required/>
+        <input id="name" class="typeName" name="nombre" type="text" placeholder="Nombre completo" required/>
+        <input id="email" class="typeEmail" name="email" type="email" placeholder="email" required/>
+        <input id="password" class="typePassword" name="contraseña" type="password" placeholder="********** " required/>
         <h5 class="textPrivacidad">Al hacer clic en registrarte, aceptas nuestras Condiciones, Política de datos y la política de cookies. </h5>
         <button type="submit" class="btn" id="btn">Registrate</button>
         <span class="link"> Ya tienes una cuenta <a id="linkLogIn" href="#/">Ingresar</a></span>`
