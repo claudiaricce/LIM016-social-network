@@ -8,8 +8,8 @@ const changeView = (route) => {
   switch (route) {
     case '':
     case '#/': {
-    container.appendChild(components.Login());
-     break;
+      container.appendChild(components.Login());
+      break;
     }
     case '#/register': {
       container.appendChild(components.Registro());
