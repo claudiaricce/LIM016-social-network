@@ -1,13 +1,24 @@
 
 export const templateFooter =
-    `<footer>
-    <div class="containerInicio">
-        <div>
-            Inicio
-        </div>
-        <input id="buscador" class="buscador" name="buscador" type="text" placeholder="Buscar"/>
-        <div class="containerPerfil">
-            Perfil
-        </div>
-    </div>
+    `<footer class="footer">
+    <a href="#/home">
+        <img class="inicio" src="../src/img/inicio.png" alt="Salir">
+    </a>
+    <a href="#/search">
+    <input id="buscador" class="search" name="buscador" type="text" placeholder="Buscar"/>
+    </a>
+    <a href="#/profile">
+        <img class="perfil" src="../src/img/perfil.png" alt="Salir">
+    </a>
     </footer>`
+
+export const templateFooterWithoutSearch =
+    `<footer class="footer">
+    <a href="#/home">
+        <img class="inicio" src="../src/img/inicio.png" alt="Salir">
+    </a>
+    <a href="#/profile">
+        <img class="perfil" src="../src/img/perfil.png" alt="Salir">
+    </a>
+    </footer>`
+

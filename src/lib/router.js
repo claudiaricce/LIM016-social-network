@@ -19,6 +19,14 @@ const changeView = (route) => {
       container.appendChild(components.Home());
       break;
     }
+    case '#/profile': {
+      container.appendChild(components.Profile());
+      break;
+    }
+    case '#/search': {
+      container.appendChild(components.Search());
+      break;
+    }
     default:
       container.appendChild(components.Different());
       break;

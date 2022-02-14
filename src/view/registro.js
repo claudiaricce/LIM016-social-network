@@ -1,25 +1,28 @@
 
 import { createUser, verificateEmail } from '../firebase/firebaseFunciones.js'
+import { templateHeader } from '../view/header.js'
 
-export const register = () => {
-    const sectionSignUp = document.createElement('section');
-    sectionSignUp.classList.add('sectionSignUp'); //la clase para la section 
-    sectionSignUp.innerHTML = `
-        <form id="signUp" class="divSignUp">
-            <h1>
+const sectionSignUp = document.createElement('section');
+sectionSignUp.classList.add('sectionSignUp');
+sectionSignUp.innerHTML = templateHeader + `
+        <img class="imagenFondo" src="../src/img/imagenFondo.png" alt="">
+        <form id="signUp" class="signUp">
+            <h1 class="title_register">
                 Registrate
             </h1>
-            <input id="name" class="typeText" name="nombre" type="text" placeholder="Nombre completo"/>
-            <input id="email" class="typeEmail" name="email" type="email" placeholder="example@gmail.com"/>
-            <input id="password" class="typePassword" name="contraseña" type="password" placeholder="**********" />
-            <p id="error-message" style="display:none"></p>
+            <div class="inputs">
+            <input id="name" class="typeText" name="nombre" type="email" placeholder="Nombre completo"  required/> 
+            <input id="email" class="typeEmail" name="email" type="email" placeholder="example@gmail.com"/> 
+            <input id="password" class="typePassword" name="contraseña" type="password" placeholder="**********" required/> 
+            </div>
+            <p class="error-message" id="error-message" style="display:none"></p>
             <h5 class="textPrivacidad">
                 Al hacer clic en registrarte, aceptas nuestras Condiciones, Política de datos y la política de cookies. 
             </h5>
-            <button type="submit" class="btn" id="btn">
+            <button type="submit" class="btn_register" id="btn">
                 Registrate
-                </button>
-            <span class="link"> 
+            </button><br>
+            <span class="link_login"> 
                 Ya tienes una cuenta 
                     <a id="linkLogIn" href="#/">
                         Ingresar
@@ -33,17 +36,69 @@ export const register = () => {
            <p id="message"></p>
            <button class="modal-btn">Aceptar</button>
           </div>
-    </div>`
+    </div>`;
 
+
+/************Validación de los Input**************/
+const inputs = sectionSignUp.querySelectorAll('#signUp input');
+
+const regexName = /^[a-zA-ZÀ-ÿ\s]{1,20}$/; // Letras y espacios, pueden llevar acentos.
+const regexPassword = /^.{4,16}$/; // 4 a 12 digitos.
+const regexEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
+
+const validarInput = (e) => {
+    switch (e.target.name) {
+        case "nombre":
+            if (regexName.test(e.target.value)) {
+                console.log('es correcto')
+                sectionSignUp.querySelector('#name').classList.add('formularioCorrecto');
+            } else {
+                console.log('es incorrecto')
+                sectionSignUp.querySelector('#name').classList.add('formularioIncorrecto');
+                sectionSignUp.querySelector('#name').classList.remove('formularioCorrecto');
+            }
+            break;
+        case "contraseña":
+            if (regexPassword.test(e.target.value)) {
+                console.log('es correcto')
+                sectionSignUp.querySelector('#password').classList.add('formularioCorrecto');
+            } else {
+                console.log('es incorrecto')
+                sectionSignUp.querySelector('#password').classList.add('formularioIncorrecto');
+                sectionSignUp.querySelector('#password').classList.remove('formularioCorrecto');
+            }
+            break;
+        case "email":
+            if (regexEmail.test(e.target.value)) {
+                console.log('es correcto')
+                sectionSignUp.querySelector('#email').classList.add('formularioCorrecto');
+            } else {
+                console.log('es incorrecto')
+                sectionSignUp.querySelector('#email').classList.add('formularioIncorrecto');
+                sectionSignUp.querySelector('#email').classList.remove('formularioCorrecto');
+            }
+            break;
+    }
+}
+inputs.forEach((input) => {
+    input.addEventListener('keyup', validarInput); //cuando deja de escribir 
+    input.addEventListener('blur', validarInput); //cuando da click afuera
+
+})
+
+
+
+export const register = () => {
     /************Boton que Registra y te lleva al Inicio de Sesión**************/
     const boton_SignUp = sectionSignUp.querySelector('#btn');
     boton_SignUp.addEventListener('click', (e) => {
         e.preventDefault()
-        //window.location.hash = '#/';
         const nameUserNew = sectionSignUp.querySelector('#name').value;
         const emailSignUp = sectionSignUp.querySelector('#email').value;
         const passwordSignUp = sectionSignUp.querySelector('#password').value;
         const FormSignUp = sectionSignUp.querySelector('#signUp');
+        FormSignUp.reset();
 
         /************Variable que contiene el método que permite registrar un usuario nuevo***********/
         createUser(emailSignUp, passwordSignUp)
@@ -54,12 +109,14 @@ export const register = () => {
                 modal.style.display = 'inline';
                 const message = document.getElementById('message');
                 message.innerText = `Bienvenido, ${nameUserNew} hemos enviado un correo para verificar tu cuenta`;
+
                 /****Envio de email al usuario*****/
                 verificateEmail(emailSignUp, passwordSignUp, nameUserNew)
                     .then(() => {
                         console.log('El usuario ha sido registrado satisfactoriamente');
                     })
                     .catch((error) => {
+                        modal.style.display = 'none';
                         console.log(error, 'No se pudo completar el registro del usuario');
                     });
             })
@@ -68,40 +125,40 @@ export const register = () => {
                 console.log(errorCode);
                 const errorMessage = document.querySelector('#error-message');
                 errorMessage.style.display = 'flex';
-
-                if (errorCode === 'auth/invalid-email') {
-                    errorMessage.textContent = 'Debes completar todos los campos';
+                if (emailSignUp === '' && passwordSignUp === '' && nameUserNew === '') {
+                    errorMessage.textContent = '✗ Debes completar todos los campos';
                     FormSignUp.reset();
-                }
-                if (errorCode === 'auth/email-already-in-use') {
-                    errorMessage.textContent = 'El correo ingresado ya se encuentra registrado';
+                } else if (errorCode === 'auth/invalid-email') {
+                    errorMessage.textContent = '✗ Debes ingresar un email valido';
                     FormSignUp.reset();
-                }
-                if (errorCode === 'auth/weak-password') {
-                    errorMessage.textContent = 'La contraseña debe tener al menos 6 caracteres';
+                } else if (errorCode === 'auth/email-already-in-use') {
+                    errorMessage.textContent = '✗ El correo ingresado ya se encuentra registrado';
                     FormSignUp.reset();
-                }
-                if (errorCode === 'auth/internal-error') {
-                    errorMessage.textContent = 'Debe ingresar una contraseña válida'
+                } else if (errorCode === 'auth/weak-password') {
+                    errorMessage.textContent = '✗ La contraseña debe tener al menos 6 caracteres';
                     FormSignUp.reset();
-                }
-                if (errorCode === 'auth/missing-email') {
-                    errorMessage.textContent = 'Debes ingresar una cuenta de correo electrónico'
+                } else if (errorCode === 'auth/internal-error') {
+                    errorMessage.textContent = '✗ Debe ingresar una contraseña válida'
+                    FormSignUp.reset();
+                } else if (errorCode === 'auth/missing-email') {
+                    errorMessage.textContent = '✗ Debes ingresar una cuenta de correo electrónico'
                     FormSignUp.reset();
                 }
             });
     });
-    /************Boton que te lleva al Inicio de Sesión, si ya tienes cuenta**********/
-    const btnLogin = sectionSignUp.querySelector('#linkLogIn');
-    btnLogin.addEventListener('click', () => {
-        window.location.hash = '#/';
-    });
-
-    /************Boton que acepta el modal y te lleva a iniciar sesión**********/
-    const btnModal = sectionSignUp.querySelector('.modal-container');
-    btnModal.addEventListener('click', () => {
-        btnModal.style.display = 'none';
-        window.location.hash = '#/';
-    });
     return sectionSignUp;
 };
+
+/************Boton que te lleva al Inicio de Sesión, si ya tienes cuenta**********/
+const btnLogin = sectionSignUp.querySelector('#linkLogIn');
+btnLogin.addEventListener('click', () => {
+    window.location.hash = '#/';
+});
+
+/************Boton que acepta el modal y te lleva a iniciar sesión**********/
+const btnModal = sectionSignUp.querySelector('.modal-container');
+btnModal.addEventListener('click', () => {
+    btnModal.style.display = 'none';
+    window.location.hash = '#/';
+});
+
