@@ -5,7 +5,8 @@ import {
     signInWithEmailAndPassword,
     sendEmailVerification,
     signInWithPopup,
-    googleProvider
+    googleProvider,
+    gitHubProvider
 } from "./config.js";
 
 /**** Registrar un usuario *******/

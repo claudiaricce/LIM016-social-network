@@ -71,7 +71,6 @@ ul {
     padding-bottom: 1rem;
     margin-top: 4rem;
 }
-
 .glowApp2 {
     font-family: Festive;
     font-size: 2.8rem;
@@ -91,26 +90,25 @@ ul {
     justify-content: center;
     align-items: center;
 }
-
 .inputs2 {
-    margin:2rem;
+    margin:1rem;
     align-items: center;
     justify-content: center;
 }
-.typeEmail1, .typePass {
+.styleEmail1, .stylepass {
     border-radius: 3rem;
     border: 0;
-    margin: 3rem;
-    padding: 3rem;
+    margin: 0.313rem;
+    padding: 0.313rem;
     width: 70%;
 }
-.typeEmail1 {
+.styleEmail1 {
     background-image: url(../src/img/email.png);
 }
-.typePass {
+.stylepass {
     background-image: url(../src/img/candado.png);
 }
-.typeEmail1, .typePass {
+.styleEmail1, .stylepass {
     background-position: 12.25rem;
     background-size: 1.5rem;
     background-repeat: no-repeat;
@@ -123,21 +121,37 @@ ul {
     color: white;
     background-color: #D9AA71;
     border: 1px solid #645e55;
+    transition: transform 0.3s ease;
+    cursor:pointer;
+}
+.btn2:hover {
+    content: "";
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%); 
+    transition: transform 0.5s ease;
 }
 
 .btn-google {
     width: 2.875rem;
     height: 2.8rem; 
 }
-
 .btn-github {
     width: 4rem;
     height: 4rem;  
 }
-
 .iconos_sesion {
     align-items: center;
     justify-content: center;
+}
+.everified {
+    font-size: 14px;
+    justify-content: center;
+    padding-bottom: 10px;
+    color: red;
+}
+.enter, .link {
+    font-weight: lighter;
+    padding-bottom: 15px;
+    color: #7b8586;
 }
 
 /****Estilos al Registro de Usuario****/
@@ -199,6 +213,12 @@ ul {
     color: white;
     background-color: #D9AA71;
     border: 1px solid #645e55;
+}
+
+.btn_register:hover {
+    content: "";
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%); 
+    transition: transform 0.5s ease;
 }
 
 /****Estilos a los input del registros ****/

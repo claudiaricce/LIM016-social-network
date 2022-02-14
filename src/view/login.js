@@ -1,30 +1,32 @@
-import { loginApp, signInGitHub, signInGoogle} from '../firebase/firebaseFunciones.js'
+import { loginApp, signInGithub, signInGoogle} from '../firebase/firebaseFunciones.js'
 import { GoogleAuthProvider, GithubAuthProvider} from '../firebase/config.js'
 
 export const login =() => {
   const templateLogin=`   
         <div id="Logo" class="containerLogin">
-        <figure></figure>
+          <p class="title_version">Queremos ver tu mejor versión</p>
+          <figure><img class="imagenFondo" src="../src/img/imagenFondo.png" alt=""></figure>
         </div>
-        <div id="formLogin" class="formStyle">
-        <p>Bienvenid@s</p>
-        <h1>Glow App</h1>
-        <p>Queremos ver tu mejor versión</p>
-        <form id="login">
-        <input id="email2" class="form" name="email" type="email" placeholder="....@gmail.com " required/>
-        <input id="password2" class="stylepass" type="password" placeholder="**********" minlength="5" required/>
-        <button type="submit" class="btn2" id="btn2">Acceder</button>
-        <p id="verified" class="everified"></p>
-        </div>
-        </form>
-        <div id="lastContainer class="lastContainers">
-        <p class="enter"> O inicia sesión con: </p>
-        <div class='iconos_sesion'>
-          <img src="./img/icono google.png" id="btn-google" class="btn-google">
-          <img src="./img/icono github.png" id="gitHub" class="btn-github"> 
-        </div>
-        <span class="link">¿Eres Nuevo aqui? <a id="linkRegister" href="#/register">Regístrate</a></span>
-        </div>
+        <form id="login" class="login">
+        <div class="tittle">
+        <h1 class="glowApp2">Glow App</h1>
+        <img class="logo2" src="../src/img/diamante.png" alt=""></img>
+        </div> 
+          <div id="inputs2" class="inputs2">
+             <input id="email2" class="styleEmail1" name="email" type="email" placeholder="....@gmail.com " required/>
+             <input id="password2" class="stylepass" type="password" placeholder="**********" minlength="5" required/>
+          </div>
+          <p id="verified" class="everified"></p>
+          <button type="submit" class="btn2" id="btn2">Acceder</button>
+          <div id="lastContainer class="lastContainers">
+            <p class="enter"> O inicia sesión con: </p>
+            <div class='iconos_sesion'>
+              <img src="./img/icono google.png" id="btn-google" class="btn-google">
+              <img src="./img/icono github.png" id="btn-github" class="btn-github"> 
+            </div>
+          <span class="link">¿Eres Nuevo aqui? <a id="linkRegister" href="#/register">Regístrate</a></span>
+          </div>
+        </form>      
         `
   const divLogin = document.createElement('div');
   divLogin.innerHTML = templateLogin;
@@ -47,7 +49,7 @@ export const login =() => {
                 console.log('Usuario logueado');
             } else {
               // muestra mensaje de error si no verifico por correo
-              errorVerified.innerHTML='Error, cuenta no verificada';
+              errorVerified.innerHTML='✗ Error, cuenta no verificada';
               cleanForm.reset();
             }
         })
@@ -56,19 +58,19 @@ export const login =() => {
             const errorMessage = error.message;
             //Validaciones de los campos
             if (emailSignIn2 === '' || passwordSignIn2 === '') {
-                errorVerified.innerHTML= 'Debes completar todos los campos';
+                errorVerified.innerHTML= '✗ Debes completar todos los campos';
                 cleanForm.reset();
               } else if (emailSignIn2 !== '' && errorCode === 'auth/invalid-email') {
-                errorVerified.innerHTML= 'La dirección de correo electrónico no es válida';
+                errorVerified.innerHTML= '✗ La dirección de correo electrónico no es válida';
                 cleanForm.reset();
               } else if (errorCode === 'auth/user-disabled') {
-                errorVerified.innerHTML= 'El usuario esta desactivado';
+                errorVerified.innerHTML= '✗ El usuario esta desactivado';
                 cleanForm.reset();
               } else if (errorCode === 'auth/user-not-found') {
-                errorVerified.innerHTML = 'Cuenta no encontrada o incorrecta';
+                errorVerified.innerHTML = '✗ Cuenta no encontrada o incorrecta';
                 cleanForm.reset();
               } else if (errorCode === 'auth/wrong-password') {
-                errorVerified.innerHTML = 'Contraseña incorrecta';
+                errorVerified.innerHTML = '✗ Contraseña incorrecta';
                 cleanForm.reset();
               }
 
