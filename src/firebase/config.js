@@ -6,7 +6,11 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    sendEmailVerification
+    sendEmailVerification,
+    signInWithPopup,
+    GoogleAuthProvider,
+    GithubAuthProvider,
+    
 } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-auth.js";
 
 // La configuración de Firebase de tu aplicación web
@@ -24,10 +28,19 @@ export const app = initializeApp(firebaseConfig);
 // Inicializa Firebase Auth
 export const auth = getAuth(app);
 
+//inicializa google con firebase app
+export const googleProvider = new GoogleAuthProvider(app);
+
+//inicializa github con github
+export const gitHubProvider = new GithubAuthProvider(app);
+
 export {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    sendEmailVerification
+    sendEmailVerification,
+    signInWithPopup,
+    GoogleAuthProvider,
+    GithubAuthProvider
 };
 

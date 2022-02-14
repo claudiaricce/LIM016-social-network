@@ -3,7 +3,9 @@ import {
     auth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    sendEmailVerification
+    sendEmailVerification,
+    signInWithPopup,
+    googleProvider
 } from "./config.js";
 
 /**** Registrar un usuario *******/
@@ -14,3 +16,9 @@ export const loginApp = (email, password) => signInWithEmailAndPassword(auth, em
 
 /**** Enviando email a usuario registrado ****** */
 export const verificateEmail = () => sendEmailVerification(auth.currentUser);
+
+/**** Inicio de sesion con google */
+export const signInGoogle = () => signInWithPopup(auth, googleProvider);
+
+/**** Inicio de sesión con github */
+export const signInGithub = () => signInWithPopup(auth, gitHubProvider);
