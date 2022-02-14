@@ -101,8 +101,9 @@ ul {
     text-align: center;
 }
 
-.error-message {
+.error-message, .error-message-input {
     font-size: 14px;
+    font-weight: bold;
     justify-content: center;
     padding-bottom: 10px;
     color: red;
@@ -139,6 +140,17 @@ ul {
     background-position: 12rem !important
 }
 
+.error-message-input {
+    display: none;
+}
+
+.activo {
+    display: block;
+}
+
+.inactivo {
+    display: none;
+}
 
 /****Estilos al modal de Registro de Usuario****/
 .modal-content {
