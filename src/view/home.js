@@ -1,23 +1,8 @@
 import { templateFooter } from './footer.js'
 import { templateHeader } from './header.js'
 
-export const home = () => {
-    const templateHome = `
-    <section class="homePage">
-    <div class="fotoPerfil"><img src="" alt="foto"></div>
-    <div class="insertarPublicacion">
-        <input id="insertarPublicacion" class="inputInsertarPublicacion" name="insertarPublicacion" type="text" placeholder="¿Que quieres compartir?"/><br>
-        <button type="submit" class="btn-publicar" id="btn-publicar">
-            Publicar
-        </button>
-    </div>
-    </section>`
-
-    const divElement = document.createElement('div');
-    divElement.innerHTML = templateHome;
-
-    const templatePost =
-        `<div class="container_post">
+export const templatePost =
+    `<div class="container_post">
         <div class="header_post">
             <aside class="title_post">
                 <h1 class="title">Publicado por:  ... </h1>
@@ -48,6 +33,20 @@ export const home = () => {
         </div>
     </div>`
 
+export const home = () => {
+    const templateHome = `
+    <section class="homePage">
+    <div class="fotoPerfil"><img src="" alt="foto"></div>
+    <div class="insertarPublicacion">
+        <input id="insertarPublicacion" class="inputInsertarPublicacion" name="insertarPublicacion" type="text" placeholder="¿Que quieres compartir?"/><br>
+        <button type="submit" class="btn-publicar" id="btn-publicar">
+            Publicar
+        </button>
+    </div>
+    </section>`
+
+    const divElement = document.createElement('div');
+    divElement.innerHTML = templateHome;
     const homePage = document.createElement('article');
     homePage.classList.add('article-home');
     homePage.innerHTML = templateHeader + templateHome + templatePost + templateFooter

@@ -1,14 +1,10 @@
 export const templateHeader = `
 <header class="header">
-<div class="containerLogo">
-    <div>
-         Logo
-    </div>
-    <h1 class="header">
-         Glow App
-    </h1>
-    <div class="cerrarSesion">
-         Salir
-    </div>
-<div>
+     <img class="logo" src="../src/img/diamante.png" alt=""></img>
+     <h1 class="glowApp">
+          Glow App
+     </h1>
+     <a href="#/">
+     <img class="cerrarSesion" src="../src/img/cerrarSesion.png" alt="Salir">
+     </a>
  </header>`
