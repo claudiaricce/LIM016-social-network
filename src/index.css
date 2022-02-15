@@ -111,15 +111,6 @@ ul {
     padding: 0.313rem;
     width: 70%;
 }
-.typeEmail1 {
-    background-image: url(../src/img/email.png);
-}
-
-.typePass {
-    background-image: url(../src/img/candado.png);
-}
-
-.typeEmail1, .typePass {
 .styleEmail1 {
     background-image: url(../src/img/email.png);
 }
