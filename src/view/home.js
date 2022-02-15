@@ -1,4 +1,4 @@
-import { closeUserSession } from "../firebase/firebaseFunciones.js"
+import { closeUserSession } from '../firebase/firebaseFunciones.js'
 
 import { templateFooter } from './footer.js'
 import { templateHeader } from './header.js'

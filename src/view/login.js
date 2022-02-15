@@ -117,7 +117,7 @@ export const login = () => {
   });
 
   //boton para ingresar con github
-  const btnGithub = divLogin.querySelector('#gitHub');
+  const btnGithub = divLogin.querySelector('#btn-github');
   btnGithub.addEventListener('click', () => {
     signInGithub()
       .then((result) => {

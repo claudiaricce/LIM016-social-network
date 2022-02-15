@@ -6,7 +6,7 @@ import {
     sendEmailVerification,
     signInWithPopup,
     googleProvider,
-    gitHubProvider,
+    githubProvider,
     signOut
 
 } from "./config.js";
@@ -24,7 +24,7 @@ export const verificateEmail = () => sendEmailVerification(auth.currentUser);
 export const signInGoogle = () => signInWithPopup(auth, googleProvider);
 
 /**** Inicio de sesión con github */
-export const signInGithub = () => signInWithPopup(auth, gitHubProvider);
+export const signInGithub = () => signInWithPopup(auth, githubProvider);
 
 /**** Cerrar sesión con github */
 export const closeUserSession = () => signOut(auth);

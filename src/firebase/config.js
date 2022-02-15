@@ -33,7 +33,7 @@ export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider(app);
 
 //inicializa github con github
-export const gitHubProvider = new GithubAuthProvider(app);
+export const githubProvider = new GithubAuthProvider(app);
 
 export {
     getAuth,
