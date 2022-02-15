@@ -92,7 +92,6 @@ inputs.forEach((input) => {
 
 })
 
-
 export const register = () => {
     /************Boton que Registra y te lleva al Inicio de Sesión**************/
     const boton_SignUp = sectionSignUp.querySelector('#btn');

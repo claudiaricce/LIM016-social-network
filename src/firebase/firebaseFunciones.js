@@ -8,6 +8,7 @@ import {
     googleProvider,
     gitHubProvider,
     signOut
+
 } from "./config.js";
 
 /**** Registrar un usuario *******/
