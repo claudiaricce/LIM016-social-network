@@ -1,3 +1,5 @@
+import { closeUserSession } from "../firebase/firebaseFunciones.js"
+
 import { templateFooter } from './footer.js'
 import { templateHeader } from './header.js'
 
@@ -51,6 +53,22 @@ export const home = () => {
     homePage.classList.add('article-home');
     homePage.innerHTML = templateHeader + templateHome + templatePost + templateFooter
 
+    /************Cerrar sesión Usuario**************/
+
+    const logOut = homePage.querySelector('#logOut');
+    logOut.addEventListener('click', () => {
+        closeUserSession()
+            .then(() => {
+                console.log('El usuario ha cerrado sesión');
+                window.location.hash = '#/';
+            })
+            .catch((error) => {
+                console.log(error, 'No se pudo cerrar la sesión');
+            });
+    });
+
+
     return homePage;
 };
+
 
