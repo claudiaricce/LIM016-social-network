@@ -78,19 +78,28 @@ ul {
     margin-right: 1rem;
     text-align: center;
 }
+
 .logo2 {
     width: 3rem;
     height: 3rem;
 }
+
 .login {
     text-align: center;
 }
+
 .tittle {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .inputs2 {
+    margin: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.typeEmail1, .typePass {
     margin:1rem;
     align-items: center;
     justify-content: center;
@@ -102,6 +111,15 @@ ul {
     padding: 0.313rem;
     width: 70%;
 }
+.typeEmail1 {
+    background-image: url(../src/img/email.png);
+}
+
+.typePass {
+    background-image: url(../src/img/candado.png);
+}
+
+.typeEmail1, .typePass {
 .styleEmail1 {
     background-image: url(../src/img/email.png);
 }
@@ -113,6 +131,7 @@ ul {
     background-size: 1.5rem;
     background-repeat: no-repeat;
 }
+
 .btn2 {
     width: 40% !important;
     padding: 2%;
@@ -132,11 +151,11 @@ ul {
 
 .btn-google {
     width: 2.875rem;
-    height: 2.8rem; 
+    height: 2.8rem;
 }
 .btn-github {
     width: 4rem;
-    height: 4rem;  
+    height: 4rem;
 }
 .iconos_sesion {
     align-items: center;
@@ -192,8 +211,9 @@ ul {
     text-align: center;
 }
 
-.error-message {
+.error-message, .error-message-input {
     font-size: 14px;
+    font-weight: bold;
     justify-content: center;
     padding-bottom: 10px;
     color: red;
@@ -234,6 +254,18 @@ ul {
 
 .formularioIncorrecto, .formularioCorrecto {
     background-position: 12rem !important
+}
+
+.error-message-input {
+    display: none;
+}
+
+.activo {
+    display: block;
+}
+
+.inactivo {
+    display: none;
 }
 
 /****Estilos al modal de Registro de Usuario****/

@@ -11,9 +11,11 @@ sectionSignUp.innerHTML = templateHeader + `
                 Registrate
             </h1>
             <div class="inputs">
-            <input id="name" class="typeText" name="nombre" type="email" placeholder="Nombre completo"  required/> 
+            <input id="name" class="typeText" name="nombre" type="email" placeholder="Nombre completo"  required/>
+            <p class="error-message-input" id="error-name">✗ Solo puede ingresar letras y espacio</p>
             <input id="email" class="typeEmail" name="email" type="email" placeholder="example@gmail.com"/> 
             <input id="password" class="typePassword" name="contraseña" type="password" placeholder="**********" required/> 
+            <p class="error-message-input" id="error-password">✗ Solo puede ingresar de 4 a 12 digitos alfanuméricos</p>
             </div>
             <p class="error-message" id="error-message" style="display:none"></p>
             <h5 class="textPrivacidad">
@@ -41,11 +43,9 @@ sectionSignUp.innerHTML = templateHeader + `
 
 /************Validación de los Input**************/
 const inputs = sectionSignUp.querySelectorAll('#signUp input');
-
 const regexName = /^[a-zA-ZÀ-ÿ\s]{1,20}$/; // Letras y espacios, pueden llevar acentos.
 const regexPassword = /^.{4,16}$/; // 4 a 12 digitos.
 const regexEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-
 
 const validarInput = (e) => {
     switch (e.target.name) {
@@ -53,20 +53,25 @@ const validarInput = (e) => {
             if (regexName.test(e.target.value)) {
                 console.log('es correcto')
                 sectionSignUp.querySelector('#name').classList.add('formularioCorrecto');
+                sectionSignUp.querySelector('#error-name').classList.remove('activo');
+
             } else {
                 console.log('es incorrecto')
                 sectionSignUp.querySelector('#name').classList.add('formularioIncorrecto');
                 sectionSignUp.querySelector('#name').classList.remove('formularioCorrecto');
+                sectionSignUp.querySelector('#error-name').classList.add('activo');
             }
             break;
         case "contraseña":
             if (regexPassword.test(e.target.value)) {
                 console.log('es correcto')
                 sectionSignUp.querySelector('#password').classList.add('formularioCorrecto');
+                sectionSignUp.querySelector('#error-password').classList.remove('activo');
             } else {
                 console.log('es incorrecto')
                 sectionSignUp.querySelector('#password').classList.add('formularioIncorrecto');
                 sectionSignUp.querySelector('#password').classList.remove('formularioCorrecto');
+                sectionSignUp.querySelector('#error-password').classList.add('activo');
             }
             break;
         case "email":

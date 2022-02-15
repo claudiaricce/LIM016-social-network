@@ -1,8 +1,8 @@
-import { loginApp, signInGithub, signInGoogle} from '../firebase/firebaseFunciones.js'
-import { GoogleAuthProvider, GithubAuthProvider} from '../firebase/config.js'
 
-export const login =() => {
-  const templateLogin=`   
+import { loginApp, signInGithub, signInGoogle } from '../firebase/firebaseFunciones.js'
+import { GoogleAuthProvider, GithubAuthProvider } from '../firebase/config.js'
+export const login = () => {
+  const templateLogin = `   
         <div id="Logo" class="containerLogin">
           <p class="title_version">Queremos ver tu mejor versión</p>
           <figure><img class="imagenFondo" src="../src/img/imagenFondo.png" alt=""></figure>
@@ -34,11 +34,12 @@ export const login =() => {
   const boton_SignIn = divLogin.querySelector('#btn2');
   boton_SignIn.addEventListener('click', (e) => {
     e.preventDefault()
-    
-        const emailSignIn2 = divLogin.querySelector('#email2').value;
-        const passwordSignIn2 = divLogin.querySelector('#password2').value;
-        const errorVerified = divLogin.querySelector('#verified');
-        const cleanForm= divLogin.querySelector('#login');
+
+
+    const emailSignIn2 = divLogin.querySelector('#email2').value;
+    const passwordSignIn2 = divLogin.querySelector('#password2').value;
+    const errorVerified = divLogin.querySelector('#verified');
+    const cleanForm = divLogin.querySelector('#login');
 
         loginApp(emailSignIn2, passwordSignIn2)
         .then((usuario)=>{
@@ -73,10 +74,9 @@ export const login =() => {
                 errorVerified.innerHTML = '✗ Contraseña incorrecta';
                 cleanForm.reset();
               }
+        console.log(errorCode, errorMessage)
 
-            console.log(errorCode, errorMessage)
-            
-        });
+      });
   });
   //boton que te lleva a vista de registro
   const btnRegister = divLogin.querySelector('#linkRegister');
@@ -85,67 +85,67 @@ export const login =() => {
   });
 
   //boton para ingresar con google
-  const btnGoogle= divLogin.querySelector('#btn-google');
-  btnGoogle.addEventListener('click', () =>{
+  const btnGoogle = divLogin.querySelector('#btn-google');
+  btnGoogle.addEventListener('click', () => {
     signInGoogle()
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      console.log(credential);
-      console.log(token);
-      console.log(user);
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        console.log(credential);
+        console.log(token);
+        console.log(user);
 
-      console.log('iniciaste sesion con google', user);
-      window.location.hash = '#/home';
-    })
-    .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      console.log(errorCode);
-      console.log(errorMessage);y
-      console.log(email);
-      console.log(credential);
-    });
+        console.log('iniciaste sesion con google', user);
+        window.location.hash = '#/home';
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(errorCode);
+        console.log(errorMessage); y
+        console.log(email);
+        console.log(credential);
+      });
   });
 
   //boton para ingresar con github
-  const btnGithub= divLogin.querySelector('#btn-github');
-  btnGithub.addEventListener('click', () =>{
+  const btnGithub = divLogin.querySelector('#gitHub');
+  btnGithub.addEventListener('click', () => {
     signInGithub()
-    .then((result) => {
-      // This gives you a Github Access Token. You can use it to access the Google API.
-      const credential = GithubAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-      console.log(credential);
-      console.log(token);
-      console.log(user);
+      .then((result) => {
+        // This gives you a Github Access Token. You can use it to access the Google API.
+        const credential = GithubAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        console.log(credential);
+        console.log(token);
+        console.log(user);
 
-      console.log('iniciaste sesion con github', user);
-      window.location.hash = '#/home';
-    })
-    .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.email;
-      // The AuthCredential type that was used.
-      const credential = GithubAuthProvider.credentialFromError(error);
-      console.log(errorCode);
-      console.log(errorMessage);
-      console.log(email);
-      console.log(credential);
-    });
+        console.log('iniciaste sesion con github', user);
+        window.location.hash = '#/home';
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GithubAuthProvider.credentialFromError(error);
+        console.log(errorCode);
+        console.log(errorMessage);
+        console.log(email);
+        console.log(credential);
+      });
   });
 
   return divLogin;

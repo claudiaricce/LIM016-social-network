@@ -10,7 +10,8 @@ import {
     signInWithPopup,
     GoogleAuthProvider,
     GithubAuthProvider,
-    
+    signOut
+
 } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-auth.js";
 
 // La configuración de Firebase de tu aplicación web
@@ -41,6 +42,7 @@ export {
     sendEmailVerification,
     signInWithPopup,
     GoogleAuthProvider,
-    GithubAuthProvider
+    GithubAuthProvider,
+    signOut,
 };
 
