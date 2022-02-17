@@ -31,11 +31,15 @@ body {
     margin-right: 1rem;
 }
 
-.footer, .header {
+.footer, .header, .headerSimple {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #F2E2CE;
+}
+
+.headerSimple {
+    justify-content: space-evenly !important
 }
 
 .footer {
@@ -62,7 +66,6 @@ ul {
 }
 
 /****Estilos al login****/
-
 .title_version {
     font-size: 1.875rem;
     font-family: Redressed;
@@ -70,6 +73,7 @@ ul {
     padding-bottom: 1rem;
     margin-top: 4rem;
 }
+
 .glowApp2 {
     font-family: Festive;
     font-size: 2.8rem;
@@ -92,6 +96,7 @@ ul {
     justify-content: center;
     align-items: center;
 }
+
 .inputs2 {
     margin: 1rem;
     align-items: center;
@@ -99,10 +104,11 @@ ul {
 }
 
 .typeEmail1, .typePass {
-    margin:1rem;
+    margin: 1rem;
     align-items: center;
     justify-content: center;
 }
+
 .styleEmail1, .stylepass {
     border-radius: 3rem;
     border: 0;
@@ -113,12 +119,13 @@ ul {
 .styleEmail1 {
     background-image: url(../src/img/email.png);
 }
+
 .stylepass {
     background-image: url(../src/img/candado.png);
 }
+
 .styleEmail1, .stylepass {
     background-position: 12.25rem;
-    background-size: 1.5rem;
     background-repeat: no-repeat;
 }
 
@@ -131,11 +138,12 @@ ul {
     background-color: #D9AA71;
     border: 1px solid #645e55;
     transition: transform 0.3s ease;
-    cursor:pointer;
+    cursor: pointer;
 }
+
 .btn2:hover {
     content: "";
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%); 
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
     transition: transform 0.5s ease;
 }
 
@@ -143,20 +151,24 @@ ul {
     width: 2.875rem;
     height: 2.8rem;
 }
+
 .btn-github {
     width: 4rem;
     height: 4rem;
 }
+
 .iconos_sesion {
     align-items: center;
     justify-content: center;
 }
+
 .everified {
     font-size: 14px;
     justify-content: center;
     padding-bottom: 10px;
     color: red;
 }
+
 .enter, .link {
     font-weight: lighter;
     padding-bottom: 15px;
@@ -164,7 +176,7 @@ ul {
 }
 
 /****Estilos al Registro de Usuario****/
-.title_register {
+.title_register, .title-profile {
     font-family: Redressed;
     text-align: center;
     padding-bottom: 1rem;
@@ -227,7 +239,7 @@ ul {
 
 .btn_register:hover {
     content: "";
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%); 
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
     transition: transform 0.5s ease;
 }
 
@@ -283,6 +295,68 @@ ul {
     font-size: 16px;
     font-weight: bold;
     color: white;
+}
+
+/****Estilos al Perfil de Usuario****/
+.article-home {
+    display: column;
+}
+
+.userProfile {
+    display: flex;
+    padding: 10px 0 0 10px;
+}
+
+.title-profile {
+    padding-top: 5px;
+    font-size: 18px;
+}
+
+.descriptionPerfil {
+    padding-left: 3rem;
+}
+
+.btn-editProfile {
+    width: 81%;
+    margin: 2% 10%;
+    border: none;
+    background: white;
+    height: 1.2rem;
+    border-radius: 10px;
+}
+
+.btn-editProfile:hover {
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    color: white;
+    transition: transform 0.5s ease;
+}
+
+.nameRegister, .description, .interests, .form-description, .form-interests {
+    border: none;
+    margin-bottom: 2%;
+}
+
+.description, .interests, .form-description, .form-interests {
+    color: #769597;
+    font-style: italic;
+}
+
+.form-description, .form-interests {
+    width: 70%;
+    height: 4rem;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.modal-editProfile {
+    background-color: #769597;
+    width: 90%;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
 }
 
 /****Estilos al home****/

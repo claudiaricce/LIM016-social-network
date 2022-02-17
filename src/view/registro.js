@@ -1,10 +1,10 @@
 
 import { createUser, verificateEmail } from '../firebase/firebaseFunciones.js'
-import { templateHeader } from '../view/header.js'
+import { templateHeaderSimple } from '../view/header.js'
 
 const sectionSignUp = document.createElement('section');
 sectionSignUp.classList.add('sectionSignUp');
-sectionSignUp.innerHTML = templateHeader + `
+sectionSignUp.innerHTML = templateHeaderSimple + `
         <img class="imagenFondo" src="../src/img/imagenFondo.png" alt="">
         <form id="signUp" class="signUp">
             <h1 class="title_register">
