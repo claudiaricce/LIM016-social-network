@@ -10,6 +10,14 @@ export const templateHeader = `
      </a>
  </header>`
 
+export const templateHeaderSimple = `
+<header class="headerSimple">
+     <img class="logo" src="../src/img/diamante.png" alt=""></img>
+     <h1 class="glowApp">
+          Glow App
+     </h1>
+ </header>`
+
 
 
 
