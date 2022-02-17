@@ -10,9 +10,24 @@ import {
     signInWithPopup,
     GoogleAuthProvider,
     GithubAuthProvider,
-    signOut
-
+    signOut,
 } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js";
+
+import{
+    getStorage,
+    ref,
+    uploadBytes,
+    getDownloadURL,
+} from "https://www.gstatic.com/firebasejs/9.6.5/firebase-storage.js";
+
 
 // La configuración de Firebase de tu aplicación web
 const firebaseConfig = {
@@ -35,6 +50,15 @@ export const googleProvider = new GoogleAuthProvider(app);
 //inicializa github con github
 export const githubProvider = new GithubAuthProvider(app);
 
+//usuario actual
+export const user= () =>auth.currentUser;
+
+//inicializa cloud Firebase
+export const db= getFirestore(app);
+
+//inicializa Storage
+export const storage= getStorage(app);
+
 export {
     getAuth,
     createUserWithEmailAndPassword,
@@ -46,3 +70,17 @@ export {
     signOut,
 };
 
+export{
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    serverTimestamp
+};
+
+export{
+    getStorage,
+    ref,
+    uploadBytes,
+    getDownloadURL,
+};

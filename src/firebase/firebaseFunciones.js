@@ -7,7 +7,12 @@ import {
     signInWithPopup,
     googleProvider,
     githubProvider,
-    signOut
+    signOut,
+    db,
+    collection,
+    addDoc,
+    getDocs,
+    serverTimestamp
 
 } from "./config.js";
 
@@ -28,3 +33,30 @@ export const signInGithub = () => signInWithPopup(auth, githubProvider);
 
 /**** Cerrar sesión con github */
 export const closeUserSession = () => signOut(auth);
+
+/***FUNCIONES PARA EL FIRESTORE ****/
+ 
+
+
+
+
+//POSTS
+//guardar los posts
+export const addPost= async (name,postText,photoURL, idUser) => {
+    console.log(name,postText,photoURL,idUser)
+    try {
+    const docRef = await addDoc(collection(db, "posts"), {
+        userIdent: idUser,
+        userPhotoPost:photoURL,
+        userWhoPublishes: name,
+        publishedText: postText,
+        publicationDate: serverTimestamp(),
+        likesPost: [],
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+};
+
+
