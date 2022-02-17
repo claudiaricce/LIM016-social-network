@@ -6,12 +6,14 @@ import {
     sendEmailVerification,
     signInWithPopup,
     googleProvider,
-    gitHubProvider,
+    githubProvider,
     signOut,
-    /* médotos de Storage */
-    /* getStorage,
-    ref,
-    uploadBytes */
+    db,
+    collection,
+    addDoc,
+    getDocs,
+    serverTimestamp
+
 } from "./config.js";
 
 /**** Registrar un usuario *******/
@@ -27,15 +29,29 @@ export const verificateEmail = () => sendEmailVerification(auth.currentUser);
 export const signInGoogle = () => signInWithPopup(auth, googleProvider);
 
 /**** Inicio de sesión con github */
-export const signInGithub = () => signInWithPopup(auth, gitHubProvider);
+export const signInGithub = () => signInWithPopup(auth, githubProvider);
 
 /**** Cerrar sesión con github */
 export const closeUserSession = () => signOut(auth);
 
-/**** Crear una referencia */
-/* export const storage = () => getStorage();
-export const createAreference = () => ref(storage, 'file'); */
+/***FUNCIONES PARA EL FIRESTORE ****/
+//POSTS
+//guardar los posts
+export const addPost = async (name, postText, photoURL, idUser) => {
+    console.log(name, postText, photoURL, idUser)
+    try {
+        const docRef = await addDoc(collection(db, "posts"), {
+            userIdent: idUser,
+            userPhotoPost: photoURL,
+            userWhoPublishes: name,
+            publishedText: postText,
+            publicationDate: serverTimestamp(),
+            likesPost: [],
+        });
+        console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
+};
 
-// Subir un imagen al Storage
-/* export const uploadImg = () => uploadBytes(storageRef, file); */
 
