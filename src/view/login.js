@@ -110,14 +110,14 @@ export const login = () => {
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         console.log(errorCode);
-        console.log(errorMessage); y
+        console.log(errorMessage); 
         console.log(email);
         console.log(credential);
       });
   });
 
   //boton para ingresar con github
-  const btnGithub = divLogin.querySelector('#gitHub');
+  const btnGithub = divLogin.querySelector('#btn-github');
   btnGithub.addEventListener('click', () => {
     signInGithub()
       .then((result) => {
