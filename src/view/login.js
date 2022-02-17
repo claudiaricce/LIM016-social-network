@@ -41,39 +41,39 @@ export const login = () => {
     const errorVerified = divLogin.querySelector('#verified');
     const cleanForm = divLogin.querySelector('#login');
 
-        loginApp(emailSignIn2, passwordSignIn2)
-        .then((usuario)=>{
-        const userEmail= usuario.user.emailVerified;
-            //si el usuario verifico su correo lo dirige a la vista home
-            if (userEmail === true) {
-                window.location.hash = '#/home';
-                console.log('Usuario logueado');
-            } else {
-              // muestra mensaje de error si no verifico por correo
-              errorVerified.innerHTML='✗ Error, cuenta no verificada';
-              cleanForm.reset();
-            }
-        })
-        .catch(function(error){
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            //Validaciones de los campos
-            if (emailSignIn2 === '' || passwordSignIn2 === '') {
-                errorVerified.innerHTML= '✗ Debes completar todos los campos';
-                cleanForm.reset();
-              } else if (emailSignIn2 !== '' && errorCode === 'auth/invalid-email') {
-                errorVerified.innerHTML= '✗ La dirección de correo electrónico no es válida';
-                cleanForm.reset();
-              } else if (errorCode === 'auth/user-disabled') {
-                errorVerified.innerHTML= '✗ El usuario esta desactivado';
-                cleanForm.reset();
-              } else if (errorCode === 'auth/user-not-found') {
-                errorVerified.innerHTML = '✗ Cuenta no encontrada o incorrecta';
-                cleanForm.reset();
-              } else if (errorCode === 'auth/wrong-password') {
-                errorVerified.innerHTML = '✗ Contraseña incorrecta';
-                cleanForm.reset();
-              }
+    loginApp(emailSignIn2, passwordSignIn2)
+      .then((usuario) => {
+        const userEmail = usuario.user.emailVerified;
+        //si el usuario verifico su correo lo dirige a la vista home
+        if (userEmail === true) {
+          window.location.hash = '#/home';
+          console.log('Usuario logueado');
+        } else {
+          // muestra mensaje de error si no verifico por correo
+          errorVerified.innerHTML = '✗ Error, cuenta no verificada';
+          cleanForm.reset();
+        }
+      })
+      .catch(function (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        //Validaciones de los campos
+        if (emailSignIn2 === '' || passwordSignIn2 === '') {
+          errorVerified.innerHTML = '✗ Debes completar todos los campos';
+          cleanForm.reset();
+        } else if (emailSignIn2 !== '' && errorCode === 'auth/invalid-email') {
+          errorVerified.innerHTML = '✗ La dirección de correo electrónico no es válida';
+          cleanForm.reset();
+        } else if (errorCode === 'auth/user-disabled') {
+          errorVerified.innerHTML = '✗ El usuario esta desactivado';
+          cleanForm.reset();
+        } else if (errorCode === 'auth/user-not-found') {
+          errorVerified.innerHTML = '✗ Cuenta no encontrada o incorrecta';
+          cleanForm.reset();
+        } else if (errorCode === 'auth/wrong-password') {
+          errorVerified.innerHTML = '✗ Contraseña incorrecta';
+          cleanForm.reset();
+        }
         console.log(errorCode, errorMessage)
 
       });
@@ -117,7 +117,7 @@ export const login = () => {
   });
 
   //boton para ingresar con github
-  const btnGithub = divLogin.querySelector('#gitHub');
+  const btnGithub = divLogin.querySelector('#btn-github');
   btnGithub.addEventListener('click', () => {
     signInGithub()
       .then((result) => {

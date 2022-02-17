@@ -1,5 +1,11 @@
 // Importación de la app de firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js";
+import {
+    getStorage,
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "https://www.gstatic.com/firebasejs/9.6.5/firebase-storage.js";
 
 //Importación de los metodos de firebase auth
 import {
@@ -29,12 +35,16 @@ export const app = initializeApp(firebaseConfig);
 // Inicializa Firebase Auth
 export const auth = getAuth(app);
 
+// Inicializa Firebase Storage
+export const storage = getStorage(app);
+
 //inicializa google con firebase app
 export const googleProvider = new GoogleAuthProvider(app);
 
 //inicializa github con github
 export const gitHubProvider = new GithubAuthProvider(app);
 
+//Exportando Firebase Auth 
 export {
     getAuth,
     createUserWithEmailAndPassword,
@@ -46,3 +56,5 @@ export {
     signOut,
 };
 
+//Exportar Firebase Storage
+export { getStorage, ref, getDownloadURL, uploadBytes }

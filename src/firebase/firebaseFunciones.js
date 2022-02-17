@@ -7,8 +7,11 @@ import {
     signInWithPopup,
     googleProvider,
     gitHubProvider,
-    signOut
-
+    signOut,
+    /* médotos de Storage */
+    /* getStorage,
+    ref,
+    uploadBytes */
 } from "./config.js";
 
 /**** Registrar un usuario *******/
@@ -28,3 +31,11 @@ export const signInGithub = () => signInWithPopup(auth, gitHubProvider);
 
 /**** Cerrar sesión con github */
 export const closeUserSession = () => signOut(auth);
+
+/**** Crear una referencia */
+/* export const storage = () => getStorage();
+export const createAreference = () => ref(storage, 'file'); */
+
+// Subir un imagen al Storage
+/* export const uploadImg = () => uploadBytes(storageRef, file); */
+
