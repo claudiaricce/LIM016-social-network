@@ -58,8 +58,6 @@ export const user = () => auth.currentUser;
 //inicializa cloud Firebase
 export const db = getFirestore(app);
 
-//inicializa Storage
-export const storage = getStorage(app);
 
 //Exportando Firebase Auth 
 export {

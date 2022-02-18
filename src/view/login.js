@@ -1,5 +1,5 @@
 
-import { loginApp, signInGithub, signInGoogle } from '../firebase/firebaseFunciones.js'
+import { loginApp, signInGithub, signInGoogle, addUserGmail } from '../firebase/firebaseFunciones.js'
 import { GoogleAuthProvider, GithubAuthProvider } from '../firebase/config.js'
 export const login = () => {
   const templateLogin = `   
@@ -99,6 +99,15 @@ export const login = () => {
         console.log(user);
 
         console.log('iniciaste sesion con google', user);
+
+        addUserGmail(result.user)
+          .then(() => {
+            console.log('todo bien');
+          })
+          .catch((error) => {
+
+            console.log(error, 'todo mal');
+          });
         window.location.hash = '#/home';
       })
       .catch((error) => {
@@ -110,7 +119,7 @@ export const login = () => {
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         console.log(errorCode);
-        console.log(errorMessage); 
+        console.log(errorMessage);
         console.log(email);
         console.log(credential);
       });
