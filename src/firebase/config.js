@@ -1,5 +1,11 @@
 // Importación de la app de firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js";
+import {
+    getStorage,
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "https://www.gstatic.com/firebasejs/9.6.5/firebase-storage.js";
 
 //Importación de los metodos de firebase auth
 import {
@@ -25,13 +31,6 @@ import {
     
 } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js";
 
-import{
-    getStorage,
-    ref,
-    uploadBytes,
-    getDownloadURL,
-} from "https://www.gstatic.com/firebasejs/9.6.5/firebase-storage.js";
-
 
 // La configuración de Firebase de tu aplicación web
 const firebaseConfig = {
@@ -48,6 +47,9 @@ export const app = initializeApp(firebaseConfig);
 // Inicializa Firebase Auth
 export const auth = getAuth(app);
 
+// Inicializa Firebase Storage
+export const storage = getStorage(app);
+
 //inicializa google con firebase app
 export const googleProvider = new GoogleAuthProvider(app);
 
@@ -55,14 +57,13 @@ export const googleProvider = new GoogleAuthProvider(app);
 export const githubProvider = new GithubAuthProvider(app);
 
 //usuario actual
-export const user= () =>auth.currentUser;
+export const user = () => auth.currentUser;
 
 //inicializa cloud Firebase
-export const db= getFirestore(app);
+export const db = getFirestore(app);
 
-//inicializa Storage
-export const storage= getStorage(app);
 
+//Exportando Firebase Auth 
 export {
     getAuth,
     createUserWithEmailAndPassword,
@@ -74,7 +75,7 @@ export {
     signOut,
 };
 
-export{
+export {
     getFirestore,
     collection,
     addDoc,
@@ -85,7 +86,7 @@ export{
     orderBy,
 };
 
-export{
+export {
     getStorage,
     ref,
     uploadBytes,

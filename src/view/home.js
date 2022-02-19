@@ -70,7 +70,7 @@ export const home = () => {
         if(contentPost.value !== ''){
             addPost(user().displayName, contentPost.value, user().photoURL, user().uid);
         }
-        contentPost.value= '';
+        contentPost.value = '';
     });
      
     // mostrar las publicaciones 
@@ -106,5 +106,3 @@ export const home = () => {
 
     return homePage;
 };
-
-

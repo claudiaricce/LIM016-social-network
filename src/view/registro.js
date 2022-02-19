@@ -1,5 +1,5 @@
 
-import { createUser, verificateEmail } from '../firebase/firebaseFunciones.js'
+import { createUser, verificateEmail, addUser } from '../firebase/firebaseFunciones.js'
 import { templateHeaderSimple } from '../view/header.js'
 
 const sectionSignUp = document.createElement('section');
@@ -112,6 +112,16 @@ export const register = () => {
                 modal.style.display = 'inline';
                 const message = document.getElementById('message');
                 message.innerText = `Bienvenido, ${nameUserNew} hemos enviado un correo para verificar tu cuenta`;
+
+                // -----* Agregar documento de datos del usuario a la coleccion "USERS"
+                addUser(nameUserNew, emailSignUp, userCredential.user)
+                    .then(() => {
+                        console.log('todo bien');
+                    })
+                    .catch((error) => {
+
+                        console.log(error, 'todo mal');
+                    });
 
                 /****Envio de email al usuario*****/
                 verificateEmail(emailSignUp, passwordSignUp, nameUserNew)
