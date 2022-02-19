@@ -1,13 +1,13 @@
 import { closeUserSession, addPost } from '../firebase/firebaseFunciones.js'
-import { user } from '../firebase/config.js'
+import { user, auth } from '../firebase/config.js'
 import { templateFooter } from './footer.js'
 import { templateHeader } from './header.js'
 
 export const templatePost =
-    `<div class="container_post">
+    `<div id="publicPost" class="container_post">
         <div class="header_post">
             <aside class="title_post">
-                <h1 class="title">Publicado por:  ... </h1>
+                <h1 class="title">Publicado por:..</h1>
                 <h4 class="date_hour">04/03/2015</h4>
             </aside>
             <aside class="photo_perfil">
@@ -15,7 +15,7 @@ export const templatePost =
             </aside>
         </div>
         <div class="content_post">
-            <p>hola</p>
+            <p></p> 
         </div>
         <div class="iconos">
             <aside class="icons_iteration">
@@ -48,23 +48,29 @@ export const home = () => {
             Publicar
         </button>
     </div>
-    </section>`
+    </section>
+    <section id="insertPost">Publicaciones</section>`
 
     const homePage = document.createElement('article');
     homePage.classList.add('article-home');
-    homePage.innerHTML = templateHeader + templateHome + templatePost + templateFooter
+    homePage.innerHTML = templateHeader + templateHome + templateFooter
 
-   //const userName= homePage.querySelector('#userName');
-    
-   const publishButton = homePage.querySelector('#btn-publicar');
+    /************Crear Publicación **************/
+    const publishButton = homePage.querySelector('#btn-publicar');
     publishButton.addEventListener('click', () => {
-        const contentPost= document.querySelector('#insertarPublicacion');
-        if(contentPost.value !== ''){
-            addPost(user().displayName, contentPost.value, null, user().uid);
+        const contentPost = document.querySelector('#insertarPublicacion');
+        console.log(contentPost)
+        if (contentPost.value !== '') {
+            console.log(auth.currentUser)
+            addPost(user().displayName, contentPost.value, user().photoURL, user().uid);
+            const publishedPost = templatePost;
+            const insertPost = document.querySelector('#insertPost');
+            insertPost.innerHTML = publishedPost;
         }
-        contentPost.value= '';
+        contentPost.value = '';
     });
-     
+
+
     /************Cerrar sesión Usuario**************/
     const logOut = homePage.querySelector('#logOut');
     logOut.addEventListener('click', () => {
@@ -81,5 +87,3 @@ export const home = () => {
 
     return homePage;
 };
-
-
