@@ -13,7 +13,10 @@ import {
     collection,
     addDoc,
     getDocs,
-    serverTimestamp
+    serverTimestamp,
+    query,
+    orderBy,
+    onSnapshot
 
 } from "./config.js";
 
@@ -37,24 +40,6 @@ export const signInGithub = () => signInWithPopup(auth, githubProvider);
 export const closeUserSession = () => signOut(auth);
 
 /***FUNCIONES PARA EL FIRESTORE ****/
-
-//guardar los posts
-export const addPost = async (name, postText, photoURL, idUser) => {
-    console.log(name, postText, photoURL, idUser)
-    try {
-        const docRef = await addDoc(collection(db, "posts"), {
-            userIdent: idUser,
-            userPhotoPost: photoURL,
-            userWhoPublishes: name,
-            publishedText: postText,
-            publicationDate: serverTimestamp(),
-            likesPost: [],
-        });
-        console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-        console.error("Error adding document: ", e);
-    }
-};
 
 /**** Crear coleccion cuando se REGISTRE un usuario */
 export const addUser = async (name, email, user) => {
@@ -91,11 +76,34 @@ export const editProfile = async (postText, idUser) => {
         publishedText: postText,
     });
     console.log("Document written with ID: ", docRefProfile.id);
-}
+};
 
-////////////////OBTENER DATOS/////////////////
 /**** Obtener datos de Usuario en el Perfil */
 export const getDataUser = () => getDocs(collection(db, "user"));
 
 /**** Obtener description del perfil del usuario cuando la edita */
 export const getEditProfile = () => getDocs(collection(db, "editProfile"));
+
+//guardar los posts
+export const addPost = async (name, postText, photoURL, idUser) => {
+    console.log(name, postText, photoURL, idUser)
+    try {
+        const docRef = await addDoc(collection(db, "posts"), {
+            userIdent: idUser,
+            userPhotoPost: photoURL,
+            userWhoPublishes: name,
+            publishedText: postText,
+            publicationDate: serverTimestamp(),
+            likesPost: [],
+        });
+        console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+        console.error("Error adding document: ", e);
+    }
+};
+
+//obtener todos los posts
+export const getPosts = () => getDocs(query(collection(db, 'posts')));
+
+//Obtener los posts en tiempo real
+export const realTimePosts = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('timestamp')), callback);

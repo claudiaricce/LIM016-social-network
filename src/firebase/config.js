@@ -24,7 +24,11 @@ import {
     collection,
     addDoc,
     getDocs,
-    serverTimestamp
+    serverTimestamp,
+    onSnapshot,
+    query,
+    orderBy,
+    
 } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js";
 
 
@@ -76,7 +80,10 @@ export {
     collection,
     addDoc,
     getDocs,
-    serverTimestamp
+    serverTimestamp,
+    onSnapshot,
+    query,
+    orderBy,
 };
 
 export {

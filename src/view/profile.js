@@ -67,19 +67,12 @@ export const profile = () => {
             });
         });
 
-
-
-
-
-
-
     /************Boton que abre modal para editar perfil**************/
     const boton_editProfile = profilePage.querySelector('#btn-editProfile');
     boton_editProfile.addEventListener('click', () => {
         const modal_editProfile = document.querySelector('.modal-containerEdit');
         modal_editProfile.style.display = 'inline';
     })
-
 
     /************Evento del teclado para llenar Input**********/
     const event_fill_input = profilePage.querySelector('.modal-containerEdit');
