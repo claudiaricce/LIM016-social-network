@@ -1,4 +1,4 @@
-import { closeUserSession, addPost, realTimePosts, getPosts } from '../firebase/firebaseFunciones.js'
+import { closeUserSession, addPost, realTimePosts} from '../firebase/firebaseFunciones.js'
 import { user } from '../firebase/config.js'
 import { templateFooter } from './footer.js'
 import { templateHeader } from './header.js'
@@ -62,7 +62,9 @@ export const home = () => {
     homePage.innerHTML = templateHeader + templateHome + templateFooter
 
     //const userName= homePage.querySelector('#userName');
-    
+   // const photoUsername = homePage.querySelector('#photoURL');
+    //photoUsername.src = doc.data().photoGmail;
+
     //botón de publicar
     const publishButton = homePage.querySelector('#btn-publicar');
     publishButton.addEventListener('click', () => {
@@ -75,9 +77,11 @@ export const home = () => {
      
     // mostrar las publicaciones 
     const publish= homePage.querySelector('#insertPost');
+    const photoUsername = homePage.querySelector('#photoURL');
     realTimePosts((querySnapshot) => {
         publish.innerHTML = '';
         querySnapshot.forEach((doc) => {
+            photoUsername.src = doc.data().photoGmail;
             const fotoUser = doc.data().userPhotoPost;
             const nombreUser = doc.data().userWhoPublishes;
             const fechaPost = doc.data().publicationDate;
@@ -85,8 +89,8 @@ export const home = () => {
             const idUsuario = user().uid;
             const cuentaLike = doc.data().likesPost;
             const idDocumento = doc.id;
-            const btnHeart = (contadorLike.indexOf(idUsuario) !== -1) ? 'painted' : '';
-        templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike.length, btnHeart);
+          // const btnHeart = (contadorLike.indexOf(idUsuario) !== -1) ? 'painted' : '';
+        templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike.length);
      });
     });
     console.log(realTimePosts)
