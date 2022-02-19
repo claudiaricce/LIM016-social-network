@@ -1,21 +1,41 @@
-import { closeUserSession, addPost } from '../firebase/firebaseFunciones.js'
+import { closeUserSession, addPost, realTimePosts, getPosts } from '../firebase/firebaseFunciones.js'
 import { user } from '../firebase/config.js'
 import { templateFooter } from './footer.js'
 import { templateHeader } from './header.js'
 
-export const templatePost =
+export const home = () => {
+
+    const templateHome = `
+    <section class="homePage">
+    <div class="fotoPerfil">
+    <h5 id="userName"></h5>
+    <img src="" alt="foto" id="photoURL">
+    </div>
+    <div class="insertarPublicacion">
+        <input id="insertarPublicacion" class="inputInsertarPublicacion" name="insertarPublicacion" type="text" placeholder="¿Que quieres compartir?"/><br>
+        <button type="submit" class="btn-publicar" id="btn-publicar">
+            Publicar
+        </button>
+    </div>
+    </section>
+    <section id="insertPost">
+    </section>
+    `
+    function templatePost (photoUser, nameUser, datePost, postUser, idDoc, countLike) {
+    const publish= homePage.querySelector('#insertPost');
+    publish.innerHTML +=
     `<div class="container_post">
         <div class="header_post">
             <aside class="title_post">
-                <h1 class="title">Publicado por:  ... </h1>
-                <h4 class="date_hour">04/03/2015</h4>
+                <h1 class="title">Publicado por: ${nameUser} </h1>
+                <h4 class="date_hour">${datePost}</h4>
             </aside>
             <aside class="photo_perfil">
-                <img src="" alt="foto">
+                <img src="${photoUser}" alt="foto">
             </aside>
         </div>
         <div class="content_post">
-            <p>hola</p>
+            <p>${postUser}</p>
         </div>
         <div class="iconos">
             <aside class="icons_iteration">
@@ -33,38 +53,44 @@ export const templatePost =
                 Publicar
             </button>
         </div>
-    </div>`
-
-export const home = () => {
-    const templateHome = `
-    <section class="homePage">
-    <div class="fotoPerfil">
-    <h5 id="userName"></h5>
-    <img src="" alt="foto" id="photoURL">
-    </div>
-    <div class="insertarPublicacion">
-        <input id="insertarPublicacion" class="inputInsertarPublicacion" name="insertarPublicacion" type="text" placeholder="¿Que quieres compartir?"/><br>
-        <button type="submit" class="btn-publicar" id="btn-publicar">
-            Publicar
-        </button>
-    </div>
-    </section>`
+    </div>`;
+    return publish;
+    };
 
     const homePage = document.createElement('article');
     homePage.classList.add('article-home');
-    homePage.innerHTML = templateHeader + templateHome + templatePost + templateFooter
+    homePage.innerHTML = templateHeader + templateHome + templateFooter
 
-   //const userName= homePage.querySelector('#userName');
+    //const userName= homePage.querySelector('#userName');
     
-   const publishButton = homePage.querySelector('#btn-publicar');
+    //botón de publicar
+    const publishButton = homePage.querySelector('#btn-publicar');
     publishButton.addEventListener('click', () => {
         const contentPost= document.querySelector('#insertarPublicacion');
         if(contentPost.value !== ''){
-            addPost(user().displayName, contentPost.value, null, user().uid);
+            addPost(user().displayName, contentPost.value, user().photoURL, user().uid);
         }
         contentPost.value= '';
     });
      
+    // mostrar las publicaciones 
+    const publish= homePage.querySelector('#insertPost');
+    realTimePosts((querySnapshot) => {
+        publish.innerHTML = '';
+        querySnapshot.forEach((doc) => {
+            const fotoUser = doc.data().userPhotoPost;
+            const nombreUser = doc.data().userWhoPublishes;
+            const fechaPost = doc.data().publicationDate;
+            const textoPost = doc.data().publishedText;
+            const idUsuario = user().uid;
+            const cuentaLike = doc.data().likesPost;
+            const idDocumento = doc.id;
+            const btnHeart = (contadorLike.indexOf(idUsuario) !== -1) ? 'painted' : '';
+        templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike.length, btnHeart);
+     });
+    });
+    console.log(realTimePosts)
+
     /************Cerrar sesión Usuario**************/
     const logOut = homePage.querySelector('#logOut');
     logOut.addEventListener('click', () => {
@@ -77,7 +103,6 @@ export const home = () => {
                 console.log(error, 'No se pudo cerrar la sesión');
             });
     });
-
 
     return homePage;
 };

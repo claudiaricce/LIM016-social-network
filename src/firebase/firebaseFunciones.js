@@ -12,7 +12,10 @@ import {
     collection,
     addDoc,
     getDocs,
-    serverTimestamp
+    serverTimestamp,
+    query,
+    orderBy,
+    onSnapshot
 
 } from "./config.js";
 
@@ -58,5 +61,9 @@ export const addPost= async (name,postText,photoURL, idUser) => {
     console.error("Error adding document: ", e);
   }
 };
+//obtener todos los posts
+export const getPosts = () => getDocs(query(collection(db, 'posts')));
 
+//Obtener los posts en tiempo real
+export const realTimePosts = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('timestamp')), callback);
 
