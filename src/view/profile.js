@@ -50,9 +50,11 @@ export const profile = () => {
     getDataUser()
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
-                loginUsername.textContent = doc.data().nameUser;
-                emailUsername.textContent = doc.data().emailUser;
-                photoUsername.src = doc.data().photoGmail;
+                if (user().uid === doc.data().IdUserActive) {
+                    loginUsername.textContent = doc.data().nameUser;
+                    emailUsername.textContent = doc.data().emailUser;
+                    photoUsername.src = doc.data().photoGmail;
+                }
             });
         });
 
