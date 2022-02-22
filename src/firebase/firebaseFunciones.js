@@ -16,7 +16,9 @@ import {
     serverTimestamp,
     query,
     orderBy,
-    onSnapshot
+    onSnapshot,
+    doc,
+    deleteDoc,
 
 } from "./config.js";
 
@@ -93,7 +95,7 @@ export const addPost = async (name, postText, photoURL, idUser) => {
             userPhotoPost: photoURL,
             userWhoPublishes: name,
             publishedText: postText,
-            publicationDate: serverTimestamp(),
+            publicationDate: new Date().toLocaleString('en-ES'),
             likesPost: [],
         });
         console.log("Document written with ID: ", docRef.id);
@@ -106,4 +108,11 @@ export const addPost = async (name, postText, photoURL, idUser) => {
 export const getPosts = () => getDocs(query(collection(db, 'posts')));
 
 //Obtener los posts en tiempo real
-export const realTimePosts = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('timestamp')), callback);
+export const realTimePosts = (callback) => {
+    const colRef = collection(db, 'posts');
+    const q = query(colRef, orderBy('publicationDate', 'desc'));
+    onSnapshot(q, callback);
+};
+
+//borrar publicaciones
+export const deletePost = async (id) => await deleteDoc(doc(db, 'posts', id));

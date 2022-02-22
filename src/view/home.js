@@ -1,4 +1,4 @@
-import { closeUserSession, addPost, realTimePosts} from '../firebase/firebaseFunciones.js'
+import { closeUserSession, addPost, realTimePosts, getDataUser, deletePost} from '../firebase/firebaseFunciones.js'
 import { user } from '../firebase/config.js'
 import { templateFooter } from './footer.js'
 import { templateHeader } from './header.js'
@@ -43,8 +43,8 @@ export const home = () => {
                 <img src="" alt="coment">
             </aside>
             <aside class="icons_iteration">
-                <img src="" alt="edit">
-                <img src="" alt="delete">
+                <img data-edit="${idDoc}"  class="editBtn" src="./img/editar.png" alt="edit">
+                <img data-post="${idDoc}" class="deleteBtn" src="./img/borrar.png" alt="delete">
             </aside>
         </div>
         <div class="coment">
@@ -61,9 +61,18 @@ export const home = () => {
     homePage.classList.add('article-home');
     homePage.innerHTML = templateHeader + templateHome + templateFooter
 
-    //const userName= homePage.querySelector('#userName');
-   // const photoUsername = homePage.querySelector('#photoURL');
-    //photoUsername.src = doc.data().photoGmail;
+    const loginUsername = homePage.querySelector('#userName');
+    const photoUsername = homePage.querySelector('#photoURL');
+    
+    getDataUser()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                if (user().uid === doc.data().IdUserActive) {
+                loginUsername.textContent = doc.data().nameUser;
+                photoUsername.src = doc.data().photoGmail;
+                };
+            });
+        });
 
     //botón de publicar
     const publishButton = homePage.querySelector('#btn-publicar');
@@ -77,11 +86,9 @@ export const home = () => {
      
     // mostrar las publicaciones 
     const publish= homePage.querySelector('#insertPost');
-    const photoUsername = homePage.querySelector('#photoURL');
     realTimePosts((querySnapshot) => {
         publish.innerHTML = '';
         querySnapshot.forEach((doc) => {
-            photoUsername.src = doc.data().photoGmail;
             const fotoUser = doc.data().userPhotoPost;
             const nombreUser = doc.data().userWhoPublishes;
             const fechaPost = doc.data().publicationDate;
@@ -90,10 +97,23 @@ export const home = () => {
             const cuentaLike = doc.data().likesPost;
             const idDocumento = doc.id;
           // const btnHeart = (contadorLike.indexOf(idUsuario) !== -1) ? 'painted' : '';
-        templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike.length);
-     });
+            templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike.length);
+        
+          //eliminar posts
+            const btnDelete = homePage.querySelectorAll('.deleteBtn');
+            console.log(btnDelete)
+            btnDelete.forEach((btn) => {
+             btn.addEventListener('click', (e) => {
+              console.log(btn)
+              const confirmar = window.confirm('¿Estás seguro de que deseas borrar este post?');
+              if (confirmar) {
+              deletePost(e.target.dataset.post);
+              }
+             });
+            });
+
+        });
     });
-    console.log(realTimePosts)
 
     /************Cerrar sesión Usuario**************/
     const logOut = homePage.querySelector('#logOut');

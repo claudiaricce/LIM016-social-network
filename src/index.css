@@ -401,6 +401,13 @@ ul {
 }
 
 .photo_perfil, .fotoPerfil {
-    background-color: black;
-    border-radius: 50%;
+     border-radius: 50%;
+}
+
+.deleteBtn {
+    width: 1.5rem;
+}
+
+.editBtn{
+    width: 1.5rem;
 }

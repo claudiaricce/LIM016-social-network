@@ -28,6 +28,8 @@ import {
     onSnapshot,
     query,
     orderBy,
+    doc,
+    deleteDoc,
     
 } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js";
 
@@ -84,6 +86,8 @@ export {
     onSnapshot,
     query,
     orderBy,
+    doc,
+    deleteDoc,
 };
 
 export {
