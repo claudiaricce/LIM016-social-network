@@ -113,6 +113,19 @@ export const home = () => {
             const btnHeart = (cuentaLike.indexOf(idUsuario) !== -1) ? 'paint' : '';
             templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike.length, btnHeart);
 
+            //eliminar posts
+            const btnDelete = homePage.querySelectorAll('.deleteBtn');
+            console.log(btnDelete)
+            btnDelete.forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                    const confirmar = window.confirm('¿Estás seguro de que deseas borrar este post?');
+                    if (confirmar) {
+                        deletePost(e.target.dataset.post);
+                        console.log(e.target.dataset.post)
+                    }
+                });
+            });
+
             /************likes a las publicaciones **************/
             const btn_give_like = homePage.querySelectorAll('.mark_like');
             //console.log(btn_give_like); //Selecciona todos los likes de todas las publicaciones, se crea un Nodelist [] OJO esta en 0
@@ -150,18 +163,7 @@ export const home = () => {
             });
     });
 
-    //eliminar posts
-    const btnDelete = homePage.querySelectorAll('.deleteBtn');
-    console.log(btnDelete)
-    btnDelete.forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-            const confirmar = window.confirm('¿Estás seguro de que deseas borrar este post?');
-            if (confirmar) {
-                deletePost(e.target.dataset.post);
-                console.log(e.target.dataset.post)
-            }
-        });
-    });
+
 
     /************Cerrar sesión Usuario**************/
     const logOut = homePage.querySelector('#logOut');
