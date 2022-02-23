@@ -31,7 +31,10 @@ import {
     arrayRemove,
     arrayUnion,
     updateDoc,
-    doc
+    doc,
+    deleteDoc,
+
+
 } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js";
 
 
@@ -90,7 +93,8 @@ export {
     arrayRemove,
     arrayUnion,
     updateDoc,
-    doc
+    doc,
+    deleteDoc,
 };
 
 export {

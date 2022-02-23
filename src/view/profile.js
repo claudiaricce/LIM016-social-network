@@ -7,7 +7,6 @@ import { home } from './home.js'
 
 //import { storage, ref, uploadBytes } from '../firebase/config.js'
 
-
 export const profile = () => {
     const templateprofile =
         `<div class="userProfile">
@@ -57,10 +56,10 @@ export const profile = () => {
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 if (user().uid === doc.data().IdUserActive) {
-                    loginUsername.textContent = doc.data().nameUser;
-                    emailUsername.textContent = doc.data().emailUser;
-                    photoUsername.src = doc.data().photoGmail;
-                }
+                loginUsername.textContent = doc.data().nameUser;
+                emailUsername.textContent = doc.data().emailUser;
+                photoUsername.src = doc.data().photoGmail;
+                };
             });
         });
 

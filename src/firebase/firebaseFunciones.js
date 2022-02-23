@@ -19,7 +19,8 @@ import {
     onSnapshot,
     arrayRemove,
     arrayUnion,
-    updateDoc
+    updateDoc,
+    deleteDoc,
 } from "./config.js";
 
 
@@ -134,4 +135,7 @@ export const addComments = async (postText, idUser) => {
     });
     console.log("Document written with ID: ", docRefComent.id);
 };
+
+//borrar publicaciones
+export const deletePost = async (id) => await deleteDoc(doc(db, 'posts', id));
 

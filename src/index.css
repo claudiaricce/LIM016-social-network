@@ -523,6 +523,17 @@ ul {
     text-align: center;
 }
 
+.photo_perfil, .fotoPerfil {
+     border-radius: 50%;
+}
+
+.deleteBtn {
+    width: 1.5rem;
+}
+
+.editBtn{
+    width: 1.5rem;
+}
 .paint {
     /*background-image: url(./img/heart.png);*/
     background-color: red;

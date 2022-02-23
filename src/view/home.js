@@ -5,7 +5,8 @@ import {
     likes,
     removeLikes,
     getDataUser,
-    addComments
+    addComments,
+    deletePost
 } from '../firebase/firebaseFunciones.js'
 import { user } from '../firebase/config.js'
 import { templateFooter } from './footer.js'
@@ -52,8 +53,8 @@ export const home = () => {
                 <img class='icono-coment' id='icono-coment' src="./img/comentar.png" alt="coment">
             </aside>
             <aside class="icons_iteration">
-                <img src="" alt="edit">
-                <img src="" alt="delete">
+                <img data-edit="${idDoc}"  class="editBtn" src="./img/editar.png" alt="edit">
+                <img data-post="${idDoc}" class="deleteBtn" src="./img/borrar.png" alt="delete">
             </aside>
         </div>
         <div class="coment">
@@ -71,6 +72,19 @@ export const home = () => {
     const homePage = document.createElement('article');
     homePage.classList.add('article-home');
     homePage.innerHTML = templateHeader + templateHome + templateFooter
+
+    /************Insertar nombre de usuario y Foto**************/
+    const loginUsername = homePage.querySelector('#userName');
+    const photoUsername = homePage.querySelector('#photoURL');
+    getDataUser()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                if (user().uid === doc.data().IdUserActive) {
+                    loginUsername.textContent = doc.data().nameUser;
+                    photoUsername.src = doc.data().photoGmail;
+                }
+            });
+        });
 
     //botón de publicar
     const publishButton = homePage.querySelector('#btn-publicar');
@@ -95,6 +109,7 @@ export const home = () => {
             const idUsuario = user().uid;
             const cuentaLike = doc.data().likesPost;
             const idDocumento = doc.id;
+
             const btnHeart = (cuentaLike.indexOf(idUsuario) !== -1) ? 'paint' : '';
             templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike.length, btnHeart);
 
@@ -133,22 +148,34 @@ export const home = () => {
                     }
                 });
             });
+    });
 
-        /************Cerrar sesión Usuario**************/
-        const logOut = homePage.querySelector('#logOut');
-        logOut.addEventListener('click', () => {
-            closeUserSession()
-                .then(() => {
-                    console.log('El usuario ha cerrado sesión');
-                    window.location.hash = '#/';
-                })
-                .catch((error) => {
-                    console.log(error, 'No se pudo cerrar la sesión');
-                });
+    //eliminar posts
+    const btnDelete = homePage.querySelectorAll('.deleteBtn');
+    console.log(btnDelete)
+    btnDelete.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            const confirmar = window.confirm('¿Estás seguro de que deseas borrar este post?');
+            if (confirmar) {
+                deletePost(e.target.dataset.post);
+                console.log(e.target.dataset.post)
+            }
         });
+    });
 
+    /************Cerrar sesión Usuario**************/
+    const logOut = homePage.querySelector('#logOut');
+    logOut.addEventListener('click', () => {
+        closeUserSession()
+            .then(() => {
+                console.log('El usuario ha cerrado sesión');
+                window.location.hash = '#/';
+            })
+            .catch((error) => {
+                console.log(error, 'No se pudo cerrar la sesión');
+            });
+    });
 
-    })
     return homePage;
 }
 
