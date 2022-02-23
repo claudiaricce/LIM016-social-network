@@ -1,4 +1,12 @@
-import { closeUserSession, addPost, realTimePosts, likes, removeLikes, getDataUser } from '../firebase/firebaseFunciones.js'
+import {
+    closeUserSession,
+    addPost,
+    realTimePosts,
+    likes,
+    removeLikes,
+    getDataUser,
+    addComments
+} from '../firebase/firebaseFunciones.js'
 import { user } from '../firebase/config.js'
 import { templateFooter } from './footer.js'
 import { templateHeader } from './header.js'
@@ -41,7 +49,7 @@ export const home = () => {
             <aside class="icons_iteration">
                 <img id='btn_give_like' class='mark_like' src="./img/like.png" alt="like">
                 <p class="counterlike">${cuentaLike}</p>
-                <img src="" alt="coment">
+                <img class='icono-coment' id='icono-coment' src="./img/comentar.png" alt="coment">
             </aside>
             <aside class="icons_iteration">
                 <img src="" alt="edit">
@@ -49,7 +57,8 @@ export const home = () => {
             </aside>
         </div>
         <div class="coment">
-            <p></p>
+            <p id='name_user_coment' class='name_user_coment'></p>
+            <p class='insert_coment_user'></p>
             <input id="insert_coment" class="insert_coment" name="coment" type="text" placeholder="Añadir un comentario..."/>
             <button type="submit" class="btn-comentar" id="btn-comentar">
                 Publicar
@@ -108,6 +117,7 @@ export const home = () => {
 
                 });
             });
+
         });
         //console.log(realTimePosts)
 
@@ -141,3 +151,4 @@ export const home = () => {
     })
     return homePage;
 }
+

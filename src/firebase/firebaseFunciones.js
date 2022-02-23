@@ -10,14 +10,16 @@ import {
     githubProvider,
     signOut,
     db,
+    doc,
     collection,
     addDoc,
     getDocs,
-    serverTimestamp,
     query,
     orderBy,
-    onSnapshot
-
+    onSnapshot,
+    arrayRemove,
+    arrayUnion,
+    updateDoc
 } from "./config.js";
 
 
@@ -70,7 +72,7 @@ export function addUserGmail(user) {
 
 /**** Crear colección cuando el usuario edita el perfil */
 export const editProfile = async (postText, idUser) => {
-    console.log(postText, idUser)
+    //console.log(postText, idUser)
     const docRefProfile = await addDoc(collection(db, "editProfile"), {
         userIdent: idUser,
         publishedText: postText,
@@ -93,7 +95,7 @@ export const addPost = async (name, postText, photoURL, idUser) => {
             userPhotoPost: photoURL,
             userWhoPublishes: name,
             publishedText: postText,
-            publicationDate: serverTimestamp(),
+            publicationDate: new Date().toLocaleString('en-ES'),
             likesPost: [],
         });
         console.log("Document written with ID: ", docRef.id);
@@ -106,4 +108,30 @@ export const addPost = async (name, postText, photoURL, idUser) => {
 export const getPosts = () => getDocs(query(collection(db, 'posts')));
 
 //Obtener los posts en tiempo real
-export const realTimePosts = (callback) => onSnapshot(query(collection(db, 'posts'), orderBy('timestamp')), callback);
+export const realTimePosts = (callback) => {
+    const colRef = collection(db, 'posts');
+    const q = query(colRef, orderBy('publicationDate', 'desc'));
+    onSnapshot(q, callback);
+};
+
+
+//Dar likes a las publicaciones
+export const likes = async (id, idUserLike) => await updateDoc(doc(db, "posts", id), {
+    likesPost: arrayUnion(idUserLike),
+});
+
+export const removeLikes = async (idPost, idUserLike) => await updateDoc(doc(db, "posts", idPost), {
+    likesPost: arrayRemove(idUserLike),
+});
+
+
+/**** Crear colección cuando el usuario agrega un comentario */
+export const addComments = async (postText, idUser) => {
+    console.log(postText, idUser)
+    const docRefComent = await addDoc(collection(db, "comments"), {
+        userIdent: idUser,
+        publishedComment: postText,
+    });
+    console.log("Document written with ID: ", docRefComent.id);
+};
+
