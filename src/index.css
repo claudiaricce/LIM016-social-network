@@ -9,19 +9,46 @@
 
 body {
     height: 100%;
+    width: 100%;
     background: #C8EBF2;
 }
 
 /***Estilos header y footer***/
-.logo, .inicio, .perfil {
+.logo {
     width: 3rem;
     height: 3rem;
     margin-left: 1rem;
 }
 
-.cerrarSesion {
+.inicio, .perfil_footer, .perfil_search {
     width: 2rem;
-    height: 2rem
+    height: 2rem;
+    margin-left: 1rem;
+}
+
+.perfil_footer, .perfil_search {
+    margin-right: 1rem;
+}
+
+.perfil, #photoURL {
+    width: 4rem;
+    height: 4rem;
+}
+
+
+.perfil, #photoURL, .photo_perfil, .photo_public {
+    border-radius: 50%;
+}
+
+.photo_public {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.cerrarSesion {
+    margin-right: 10px;
+    width: 1.5rem;
+    height: 1.5rem
 }
 
 .glowApp {
@@ -32,6 +59,7 @@ body {
 }
 
 .footer, .header, .headerSimple {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,6 +74,7 @@ body {
     position: fixed;
     bottom: 0px;
     width: 100%;
+    height: 3rem;
 }
 
 /****Estilos al Buscador****/
@@ -116,6 +145,7 @@ ul {
     padding: 0.313rem;
     width: 70%;
 }
+
 .styleEmail1 {
     background-image: url(../src/img/email.png);
 }
@@ -129,7 +159,7 @@ ul {
     background-repeat: no-repeat;
 }
 
-.btn2 {
+.btn2, .btn-publicar {
     width: 40% !important;
     padding: 2%;
     margin-bottom: 2%;
@@ -141,23 +171,37 @@ ul {
     cursor: pointer;
 }
 
+.btn-publicar {
+    background-color: white !important;
+    color: black !important;
+}
+
 .btn2:hover {
     content: "";
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
     transition: transform 0.5s ease;
 }
 
+.btn-publicar:hover {
+    content: "";
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    transition: transform 0.5s ease;
+    color: white;
+}
+
+
 .btn-google {
-    width: 2.875rem;
-    height: 2.8rem;
+    width: 1.975rem;
+    height: 1.8rem;
 }
 
 .btn-github {
-    width: 4rem;
-    height: 4rem;
+    width: 2.475rem;
+    height: 2.475rem;
 }
 
 .iconos_sesion {
+    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -317,6 +361,7 @@ ul {
 }
 
 .btn-editProfile {
+    font-family: 'Times New Roman', Times, serif;
     width: 81%;
     margin: 2% 10%;
     border: none;
@@ -336,9 +381,21 @@ ul {
     margin-bottom: 2%;
 }
 
-.description, .interests, .form-description, .form-interests {
-    color: #769597;
-    font-style: italic;
+.emailRegister {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 12px;
+    text-align: center;
+    color: gray;
+}
+
+.presentacion {
+    font-family: Redressed;
+    font-size: 18px;
+}
+
+.description {
+    font-family: 'Times New Roman', Times, serif;
+    color: #3d4242;
 }
 
 .form-description, .form-interests {
@@ -363,44 +420,104 @@ ul {
 .homePage, .header_post, .iconos, .icons_iteration {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 10px;
+}
+
+.header_post {
+    background-color: #F2E2CE;
+    margin-top: 0px !important;
+    border-radius: 10px;
+}
+
+.userName, .nameRegister {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
 }
 
 .insertarPublicacion {
     padding: 1rem;
-    background-color: #EAECEE;
+    background-color: #D9AA71;
     display: flex;
     flex-direction: column;
-    align-items: flex-end
+    align-items: flex-end;
+    border-radius: 20px;
+    width: 70%;
+    margin-bottom: 10px;
 }
 
 .inputInsertarPublicacion {
     height: 6rem;
-    width: 13rem;
+    width: 12rem;
+    border-radius: 20px;
     background-color: aliceblue;
     padding: 1rem;
 }
 
-.header_post .title_post, .insert_coment {
+.header_post .title_post {
+    width: 100%;
+}
+
+.insert_coment {
     width: 80%;
+    height: 2rem;
+    border: none;
+    font-style: italic;
+    margin-left: 5px;
+}
+
+.btn-comentar {
+    border: none;
+    font-size: 12px;
+    font-style: italic;
+    text-decoration: underline;
+    background-color: white;
+    color: rgb(85, 177, 219);
+}
+
+.title {
+    font-size: 15px;
+    padding: 5px;
+}
+
+.date_hour {
+    font-size: 12px;
+    color: rgb(141, 141, 158);
+    text-align: center;
 }
 
 .content_post {
     height: 5rem;
+    text-align: justify;
 }
 
-.header_post, .container_post, .iconos {
-    border: 1px solid;
+.iconos {
+    background-color: #D9AA71;
 }
+
+.container_post {
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: white;
+    width: 90%;
+    margin: 5%;
+}
+
 
 .fotoPerfil {
     height: 6rem;
     width: 6rem;
-    margin-left: 2rem;
+    text-align: center;
 }
 
-.photo_perfil, .fotoPerfil {
-    background-color: black;
-    border-radius: 50%;
+.paint {
+    /*background-image: url(./img/heart.png);*/
+    background-color: red;
+    width: 1.4rem;
+}
+
+.mark_like {
+    background-image: url(./img/like.png);
+    width: 1.4rem;
 }
