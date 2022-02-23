@@ -104,10 +104,10 @@ export const home = () => {
             console.log(btnDelete)
             btnDelete.forEach((btn) => {
              btn.addEventListener('click', (e) => {
-              console.log(btn)
               const confirmar = window.confirm('¿Estás seguro de que deseas borrar este post?');
               if (confirmar) {
               deletePost(e.target.dataset.post);
+              console.log(e.target.dataset.post)
               }
              });
             });
