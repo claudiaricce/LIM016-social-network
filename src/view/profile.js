@@ -5,7 +5,6 @@ import { templateHeader } from './header.js'
 
 //import { storage, ref, uploadBytes } from '../firebase/config.js'
 
-
 export const profile = () => {
     const templateprofile =
         `<div class="userProfile">
