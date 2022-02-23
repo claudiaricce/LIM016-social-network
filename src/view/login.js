@@ -94,9 +94,9 @@ export const login = () => {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        console.log(credential);
-        console.log(token);
-        console.log(user);
+        /*  console.log(credential);
+         console.log(token);
+         console.log(user); */
 
         console.log('iniciaste sesion con google', user);
 
