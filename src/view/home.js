@@ -1,4 +1,4 @@
-import { closeUserSession, addPost, realTimePosts, getDataUser, deletePost } from '../firebase/firebaseFunciones.js'
+import { closeUserSession, addPost, realTimePosts, getDataUser, deletePost, likes, removeLikes } from '../firebase/firebaseFunciones.js'
 import { user } from '../firebase/config.js'
 import { templateFooter } from './footer.js'
 import { templateHeader } from './header.js'
@@ -21,7 +21,7 @@ export const home = () => {
     <section id="insertPost">
     </section>
     `
-    function templatePost(photoUser, nameUser, datePost, postUser, idDoc, cuentaLike) {
+    function templatePost(photoUser, nameUser, datePost, postUser, idDoc, lengthLike) {
         const publish = homePage.querySelector('#insertPost');
         publish.innerHTML +=
             `<div class="container_post">
@@ -39,13 +39,13 @@ export const home = () => {
         </div>
         <div class="iconos">
             <aside class="icons_iteration">
-                <img id='btn_give_like' class='mark_like' src="./img/like.png" alt="like">
-                <p class="counterlike">${cuentaLike}</p>
+                <img id='btn_give_like-${idDoc}' class='mark_like' data-like="${idDoc}" src="./img/like.png" alt="like">
+                <p class="counterlike">${lengthLike}</p>
                 <img src="" alt="coment">
             </aside>
             <aside class="icons_iteration">
                 <img data-edit="${idDoc}"  class="editBtn" src="./img/editar.png" alt="edit">
-                <img data-post="${idDoc}" class="deleteBtn" src="./img/borrar.png" alt="delete">
+                <img data-post="${idDoc}"  class="deleteBtn" src="./img/borrar.png" alt="delete" >
             </aside>
         </div>
         <div class="coment">
@@ -97,41 +97,50 @@ export const home = () => {
             const fechaPost = doc.data().publicationDate;
             const textoPost = doc.data().publishedText;
             const idUsuario = user().uid;
+            const identUsuario= doc.data().userIdent;
             const cuentaLike = doc.data().likesPost;
+            const lengthLike= cuentaLike.length;
             const idDocumento = doc.id;
-
-        const btnHeart = (cuentaLike.indexOf(idUsuario) !== -1) ? 'paint' : '';
-        templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike.length, btnHeart);
-        
+            templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, identUsuario, lengthLike);
+    
          /************likes a las publicaciones **************/
          const btn_give_like = homePage.querySelectorAll('.mark_like');
          //console.log(btn_give_like); //Selecciona todos los likes de todas las publicaciones, se crea un Nodelist [] OJO esta en 0
          btn_give_like.forEach((like) => {
              like.addEventListener('click', (e) => {
                  console.log('diste click')
-                 const idPost = e.target.dataset.id;
-                 if (e.target.classList.contains('paint')) {
-                     removeLikes(idPost, idUsuario).FieldValue;
-                     e.target.classList.remove('paint')
-                     console.log("se quito el like");
+                 const idPost = e.target.dataset.like;
+                 if (!e.target.classList.contains('paint')) {
+                     likes(idPost, idUsuario).fieldValue;
                  } else {
-                     likes(idPost, idUsuario).FieldValue;
-                     e.target.classList.add('paint')
-                     console.log("se dio like");
+                     removeLikes(idPost, idUsuario).fieldValue;
                  }
-
              });
          });
-    
+
+        //mostrar botones de edicion y eliminar
+        const edit = homePage.querySelectorAll('.editBtn');
+        const deleteBtn = homePage.querySelectorAll('.deleteBtn');
+        
+        edit.forEach((img) => {
+            if ( idUsuario === identUsuario) {
+                img.style.display = "inline";
+            }
+        }); 
+        deleteBtn.forEach((img) => {
+            if ( idUsuario === identUsuario) {
+                img.style.display = "inline";
+            }
+        }); 
+
         //eliminar posts
             const btnDelete = homePage.querySelectorAll('.deleteBtn');
-            console.log(btnDelete)
             btnDelete.forEach((btn) => {
              btn.addEventListener('click', (e) => {
               const confirmar = window.confirm('¿Estás seguro de que deseas borrar este post?');
               if (confirmar) {
               deletePost(e.target.dataset.post);
-              console.log(e.target.dataset.post)
+              //console.log(e.target.dataset.post)
               }
              });
             });
@@ -151,7 +160,5 @@ export const home = () => {
                 });
         });
 
-
-    
     return homePage;
 }

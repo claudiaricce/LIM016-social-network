@@ -516,10 +516,12 @@ ul {
 }
 
 .deleteBtn {
+    display: none;
     width: 1.5rem;
 }
 
 .editBtn{
+    display: none;
     width: 1.5rem;
 }
 .paint {

@@ -13,12 +13,14 @@ import {
     collection,
     addDoc,
     getDocs,
-    serverTimestamp,
     query,
     orderBy,
     onSnapshot,
     doc,
     deleteDoc,
+    updateDoc,
+    arrayRemove,
+    arrayUnion,
 
 } from "./config.js";
 
@@ -113,6 +115,15 @@ export const realTimePosts = (callback) => {
     const q = query(colRef, orderBy('publicationDate', 'desc'));
     onSnapshot(q, callback);
 };
+
+//Dar likes a las publicaciones
+export const likes = async (id, idUserLike) => await updateDoc(doc(db, "posts", id), {
+    likesPost: arrayUnion(idUserLike),
+});
+
+export const removeLikes = async (idPost, idUserLike) => await updateDoc(doc(db, "posts", idPost), {
+    likesPost: arrayRemove(idUserLike),
+});
 
 //borrar publicaciones
 export const deletePost = async (id) => await deleteDoc(doc(db, 'posts', id));
