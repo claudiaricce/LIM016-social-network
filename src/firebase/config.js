@@ -93,9 +93,6 @@ export {
     updateDoc,
     doc,
     deleteDoc,
-    updateDoc,
-    arrayUnion,
-    arrayRemove,
 };
 
 export {
