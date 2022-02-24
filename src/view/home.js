@@ -1,3 +1,4 @@
+
 import {
     closeUserSession,
     addPost,
@@ -8,6 +9,7 @@ import {
     addComments,
     deletePost
 } from '../firebase/firebaseFunciones.js'
+
 import { user } from '../firebase/config.js'
 import { templateFooter } from './footer.js'
 import { templateHeader } from './header.js'
@@ -48,13 +50,15 @@ export const home = () => {
         </div>
         <div class="iconos">
             <aside class="icons_iteration">
+
                 <img id='btn_give_like' class='mark_like' src="./img/like.png" alt="like">
                 <p class="counterlike">${lengthLike.length}</p>
                 <img class='icono-coment' id='icono-coment' src="./img/comentar.png" alt="coment">
+
             </aside>
             <aside class="icons_iteration">
                 <img data-edit="${idDoc}"  class="editBtn" src="./img/editar.png" alt="edit">
-                <img data-post="${idDoc}" class="deleteBtn" src="./img/borrar.png" alt="delete">
+                <img data-post="${idDoc}"  class="deleteBtn" src="./img/borrar.png" alt="delete" >
             </aside>
         </div>
         <div class="coment">
@@ -118,19 +122,6 @@ export const home = () => {
 
             templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike, lengthLike);
 
-            //eliminar posts
-            const btnDelete = homePage.querySelectorAll('.deleteBtn');
-            // console.log(btnDelete)
-            btnDelete.forEach((btn) => {
-                btn.addEventListener('click', (e) => {
-                    const confirmar = window.confirm('¿Estás seguro de que deseas borrar este post?');
-                    if (confirmar) {
-                        deletePost(e.target.dataset.post);
-                        console.log(e.target.dataset.post)
-                    }
-                });
-            });
-
             /************likes a las publicaciones **************/
             const btn_give_like = homePage.querySelectorAll('.mark_like');
             btn_give_like.forEach((like) => {
@@ -148,6 +139,32 @@ export const home = () => {
                         console.log("se dio like");
                     }
                 });
+
+        //mostrar botones de edicion y eliminar
+        const edit = homePage.querySelectorAll('.editBtn');
+        const deleteBtn = homePage.querySelectorAll('.deleteBtn');
+        
+        edit.forEach((img) => {
+            if ( idUsuario === identUsuario) {
+                img.style.display = "inline";
+            }
+        }); 
+        deleteBtn.forEach((img) => {
+            if ( idUsuario === identUsuario) {
+                img.style.display = "inline";
+            }
+        }); 
+
+        //eliminar posts
+            const btnDelete = homePage.querySelectorAll('.deleteBtn');
+            btnDelete.forEach((btn) => {
+             btn.addEventListener('click', (e) => {
+              const confirmar = window.confirm('¿Estás seguro de que deseas borrar este post?');
+              if (confirmar) {
+              deletePost(e.target.dataset.post);
+              //console.log(e.target.dataset.post)
+              }
+             });
             });
 
         });
@@ -216,6 +233,7 @@ export const home = () => {
                 console.log(error, 'No se pudo cerrar la sesión');
             });
     });
+
 
     return homePage;
 }
