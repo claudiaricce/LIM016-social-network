@@ -30,7 +30,7 @@ export const home = () => {
     <section id="insertPost">
     </section>
     `
-    function templatePost(photoUser, nameUser, datePost, postUser, idDoc, cuentaLike) {
+    function templatePost(photoUser, nameUser, datePost, postUser, idDoc, lengthLike) {
         const publish = homePage.querySelector('#insertPost');
         publish.innerHTML +=
             `<div class="container_post">
@@ -49,7 +49,7 @@ export const home = () => {
         <div class="iconos">
             <aside class="icons_iteration">
                 <img id='btn_give_like' class='mark_like' src="./img/like.png" alt="like">
-                <p class="counterlike">${cuentaLike}</p>
+                <p class="counterlike">${lengthLike.length}</p>
                 <img class='icono-coment' id='icono-coment' src="./img/comentar.png" alt="coment">
             </aside>
             <aside class="icons_iteration">
@@ -107,15 +107,20 @@ export const home = () => {
             const fechaPost = doc.data().publicationDate;
             const textoPost = doc.data().publishedText;
             const idUsuario = user().uid;
+            console.log(idUsuario)
             const cuentaLike = doc.data().likesPost;
+            const lengthLike = cuentaLike.length;
+            console.log(lengthLike)
             const idDocumento = doc.id;
 
-            const btnHeart = (cuentaLike.indexOf(idUsuario) !== -1) ? 'paint' : '';
-            templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike.length, btnHeart);
+            /* const btnHeart = (cuentaLike.indexOf(idUsuario) !== -1) ? 'paint' : '';
+            console.log(btnHeart) */
+
+            templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike, lengthLike);
 
             //eliminar posts
             const btnDelete = homePage.querySelectorAll('.deleteBtn');
-            console.log(btnDelete)
+            // console.log(btnDelete)
             btnDelete.forEach((btn) => {
                 btn.addEventListener('click', (e) => {
                     const confirmar = window.confirm('¿Estás seguro de que deseas borrar este post?');
@@ -128,11 +133,11 @@ export const home = () => {
 
             /************likes a las publicaciones **************/
             const btn_give_like = homePage.querySelectorAll('.mark_like');
-            //console.log(btn_give_like); //Selecciona todos los likes de todas las publicaciones, se crea un Nodelist [] OJO esta en 0
             btn_give_like.forEach((like) => {
                 like.addEventListener('click', (e) => {
                     console.log('diste click')
-                    const idPost = e.target.dataset.id;
+                    const idPost = doc.id;
+                    console.log(idPost)
                     if (e.target.classList.contains('paint')) {
                         removeLikes(idPost, idUsuario).FieldValue;
                         e.target.classList.remove('paint')
@@ -142,11 +147,45 @@ export const home = () => {
                         e.target.classList.add('paint')
                         console.log("se dio like");
                     }
-
                 });
             });
 
         });
+        /************Insertar comentario a las publicaciones **************/
+        /************Boton que abre input para insertar comentario**************/
+        const boton_insertComent = homePage.querySelectorAll('#icono-coment');
+        const input_coment = homePage.querySelectorAll('.coment');
+        const insert_comment_in_input = homePage.querySelectorAll('#btn-comentar');
+        /* console.log(input_coment);
+        console.log(boton_insertComent); */
+        boton_insertComent.forEach((coment) => {
+            coment.addEventListener('click', () => {
+                console.log('diste click en el icono de comentar')
+                input_coment.forEach((insertComent) => {
+                    console.log('ya puedes insertar un comentario')
+                    insertComent.style.display = 'inline';
+                    /************ Insertar comentario en la publicacion**********/
+                    insert_comment_in_input.forEach((input) => {
+                        input.addEventListener('click', () => {
+                            console.log('esta escribiendo...')
+                            const obtenerValueInput = insert_comment_in_input.value; //aqui selecciono el valor del input 
+                            console.log(obtenerValueInput)
+                            const insertComent = document.querySelector('.insert_coment_user'); // este es el espacio donde imprimire el comentario 
+                            insertComent.innerHTML = obtenerValueInput;
+                            addComments(obtenerValueInput, user().displayName, user().uid)
+                                .then(() => {
+                                    console.log('todo bien');
+                                })
+                                .catch((error) => {
+                                    console.log(error, 'todo mal');
+                                });
+                        })
+                    })
+                })
+            })
+        })
+
+
         //console.log(realTimePosts)
 
         /************Insertar nombre de usuario y Foto**************/

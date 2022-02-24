@@ -56,9 +56,9 @@ export const profile = () => {
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 if (user().uid === doc.data().IdUserActive) {
-                loginUsername.textContent = doc.data().nameUser;
-                emailUsername.textContent = doc.data().emailUser;
-                photoUsername.src = doc.data().photoGmail;
+                    loginUsername.textContent = doc.data().nameUser;
+                    emailUsername.textContent = doc.data().emailUser;
+                    photoUsername.src = doc.data().photoGmail;
                 };
             });
         });

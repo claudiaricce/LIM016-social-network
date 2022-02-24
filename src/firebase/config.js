@@ -33,8 +33,6 @@ import {
     updateDoc,
     doc,
     deleteDoc,
-
-
 } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js";
 
 

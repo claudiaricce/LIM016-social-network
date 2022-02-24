@@ -344,6 +344,7 @@ ul {
 /****Estilos al Perfil de Usuario****/
 .article-home {
     display: column;
+    margin-bottom: 4rem;
 }
 
 .userProfile {
@@ -524,16 +525,17 @@ ul {
 }
 
 .photo_perfil, .fotoPerfil {
-     border-radius: 50%;
+    border-radius: 50%;
 }
 
 .deleteBtn {
     width: 1.5rem;
 }
 
-.editBtn{
+.editBtn {
     width: 1.5rem;
 }
+
 .paint {
     /*background-image: url(./img/heart.png);*/
     background-color: red;
