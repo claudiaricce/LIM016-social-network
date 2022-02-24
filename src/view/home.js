@@ -1,4 +1,3 @@
-
 import {
     closeUserSession,
     addPost,
@@ -7,7 +6,7 @@ import {
     removeLikes,
     getDataUser,
     addComments,
-    deletePost
+    deletePost,
 } from '../firebase/firebaseFunciones.js'
 
 import { user } from '../firebase/config.js'
@@ -32,7 +31,7 @@ export const home = () => {
     <section id="insertPost">
     </section>
     `
-    function templatePost(photoUser, nameUser, datePost, postUser, idDoc, lengthLike) {
+    function templatePost(photoUser, nameUser, datePost, postUser, idDoc, identUsuario, lengthLike, idUsuario) {
         const publish = homePage.querySelector('#insertPost');
         publish.innerHTML +=
             `<div class="container_post">
@@ -51,14 +50,14 @@ export const home = () => {
         <div class="iconos">
             <aside class="icons_iteration">
 
-                <img id='btn_give_like' class='mark_like' src="./img/like.png" alt="like">
-                <p class="counterlike">${lengthLike.length}</p>
+                <img id='like-${idDoc}' class='mark_like' src="./img/like.png" alt="like">
+                <p class="counterlike">${lengthLike}</p>
                 <img class='icono-coment' id='icono-coment' src="./img/comentar.png" alt="coment">
 
             </aside>
             <aside class="icons_iteration">
-                <img data-edit="${idDoc}"  class="editBtn" src="./img/editar.png" alt="edit">
-                <img data-post="${idDoc}"  class="deleteBtn" src="./img/borrar.png" alt="delete" >
+                <img data-edit="${idDoc}" style="${idUsuario == identUsuario ? "display: block;" : "display: none;"}" class="editBtn" src="./img/editar.png" alt="edit">
+                <img data-post="${idDoc}" style="${idUsuario == identUsuario ? "display: block;" : "display: none;"}" class="deleteBtn" src="./img/borrar.png" alt="delete" >
             </aside>
         </div>
         <div class="coment">
@@ -111,23 +110,19 @@ export const home = () => {
             const fechaPost = doc.data().publicationDate;
             const textoPost = doc.data().publishedText;
             const idUsuario = user().uid;
-            console.log(idUsuario)
             const cuentaLike = doc.data().likesPost;
             const lengthLike = cuentaLike.length;
-            console.log(lengthLike)
             const idDocumento = doc.id;
+            const identUsuario= doc.data().userIdent;
+            console.log(idUsuario == identUsuario)
 
-            /* const btnHeart = (cuentaLike.indexOf(idUsuario) !== -1) ? 'paint' : '';
-            console.log(btnHeart) */
-
-            templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike, lengthLike);
+            templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, identUsuario, lengthLike,idUsuario);
 
             /************likes a las publicaciones **************/
             const btn_give_like = homePage.querySelectorAll('.mark_like');
             btn_give_like.forEach((like) => {
                 like.addEventListener('click', (e) => {
-                    console.log('diste click')
-                    const idPost = doc.id;
+                    const idPost = e.target.dataset.like;
                     console.log(idPost)
                     if (e.target.classList.contains('paint')) {
                         removeLikes(idPost, idUsuario).FieldValue;
@@ -139,23 +134,9 @@ export const home = () => {
                         console.log("se dio like");
                     }
                 });
-
-        //mostrar botones de edicion y eliminar
-        const edit = homePage.querySelectorAll('.editBtn');
-        const deleteBtn = homePage.querySelectorAll('.deleteBtn');
-        
-        edit.forEach((img) => {
-            if ( idUsuario === identUsuario) {
-                img.style.display = "inline";
-            }
-        }); 
-        deleteBtn.forEach((img) => {
-            if ( idUsuario === identUsuario) {
-                img.style.display = "inline";
-            }
-        }); 
-
-        //eliminar posts
+            });
+           
+            //eliminar posts
             const btnDelete = homePage.querySelectorAll('.deleteBtn');
             btnDelete.forEach((btn) => {
              btn.addEventListener('click', (e) => {
@@ -167,7 +148,6 @@ export const home = () => {
              });
             });
 
-        });
         /************Insertar comentario a las publicaciones **************/
         /************Boton que abre input para insertar comentario**************/
         const boton_insertComent = homePage.querySelectorAll('#icono-coment');
@@ -202,24 +182,8 @@ export const home = () => {
             })
         })
 
-
-        //console.log(realTimePosts)
-
-        /************Insertar nombre de usuario y Foto**************/
-        const loginUsername = homePage.querySelector('#userName');
-        const photoUsername = homePage.querySelector('#photoURL');
-        getDataUser()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    if (user().uid === doc.data().IdUserActive) {
-                        loginUsername.textContent = doc.data().nameUser;
-                        photoUsername.src = doc.data().photoGmail;
-                    }
-                });
-            });
+     });
     });
-
-
 
     /************Cerrar sesión Usuario**************/
     const logOut = homePage.querySelector('#logOut');
@@ -234,7 +198,5 @@ export const home = () => {
             });
     });
 
-
     return homePage;
 }
-
