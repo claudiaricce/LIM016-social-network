@@ -56,9 +56,9 @@ export const profile = () => {
         .then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 if (user().uid === doc.data().IdUserActive) {
-                loginUsername.textContent = doc.data().nameUser;
-                emailUsername.textContent = doc.data().emailUser;
-                photoUsername.src = doc.data().photoGmail;
+                    loginUsername.textContent = doc.data().nameUser;
+                    emailUsername.textContent = doc.data().emailUser;
+                    photoUsername.src = doc.data().photoGmail;
                 };
             });
         });
@@ -93,19 +93,15 @@ export const profile = () => {
     boton_saveChanges.addEventListener('click', () => {
         const modal_changes_Saved = document.querySelector('.modal-containerEdit');
         modal_changes_Saved.style.display = 'none';
-
         const contentDescription = document.querySelector('#description').value;
-        console.log(contentDescription);
-
+        //console.log(contentDescription);
         editProfile(contentDescription, user().displayName, user().uid)
             .then(() => {
                 console.log('todo bien');
             })
             .catch((error) => {
-
-                // console.log(error, 'todo mal');
+                console.log(error, 'todo mal');
             });
-
     })
 
     /************Cerrar sesión Usuario**************/

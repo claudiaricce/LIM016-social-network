@@ -10,18 +10,17 @@ import {
     githubProvider,
     signOut,
     db,
+    doc,
     collection,
     addDoc,
     getDocs,
     query,
     orderBy,
     onSnapshot,
-    doc,
-    deleteDoc,
-    updateDoc,
     arrayRemove,
     arrayUnion,
-
+    updateDoc,
+    deleteDoc,
 } from "./config.js";
 
 
@@ -74,7 +73,7 @@ export function addUserGmail(user) {
 
 /**** Crear colección cuando el usuario edita el perfil */
 export const editProfile = async (postText, idUser) => {
-    console.log(postText, idUser)
+    //console.log(postText, idUser)
     const docRefProfile = await addDoc(collection(db, "editProfile"), {
         userIdent: idUser,
         publishedText: postText,
@@ -116,6 +115,7 @@ export const realTimePosts = (callback) => {
     onSnapshot(q, callback);
 };
 
+
 //Dar likes a las publicaciones
 export const likes = async (id, idUserLike) => await updateDoc(doc(db, "posts", id), {
     likesPost: arrayUnion(idUserLike),
@@ -125,5 +125,18 @@ export const removeLikes = async (idPost, idUserLike) => await updateDoc(doc(db,
     likesPost: arrayRemove(idUserLike),
 });
 
+
+/**** Crear colección cuando el usuario agrega un comentario */
+export const addComments = async (postText, idUser) => {
+    console.log(postText, idUser)
+    const docRefComent = await addDoc(collection(db, "comments"), {
+        userIdent: idUser,
+        publishedComment: postText,
+    });
+    console.log("Document written with ID: ", docRefComent.id);
+};
+
+
 //borrar publicaciones
 export const deletePost = async (id) => await deleteDoc(doc(db, 'posts', id));
+

@@ -344,6 +344,7 @@ ul {
 /****Estilos al Perfil de Usuario****/
 .article-home {
     display: column;
+    margin-bottom: 4rem;
 }
 
 .userProfile {
@@ -421,7 +422,7 @@ ul {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-top: 10px;
+    padding: 3px;
 }
 
 .header_post {
@@ -459,12 +460,23 @@ ul {
     width: 100%;
 }
 
+.coment {
+    display: none;
+}
+
+
+
 .insert_coment {
     width: 80%;
     height: 2rem;
     border: none;
     font-style: italic;
     margin-left: 5px;
+}
+
+.icono-coment {
+    width: 1.4rem;
+    margin-left: 8px;
 }
 
 .btn-comentar {
@@ -494,6 +506,7 @@ ul {
 
 .iconos {
     background-color: #D9AA71;
+    border-radius: 10px;
 }
 
 .container_post {
@@ -512,7 +525,7 @@ ul {
 }
 
 .photo_perfil, .fotoPerfil {
-     border-radius: 50%;
+    border-radius: 50%;
 }
 
 .deleteBtn {
@@ -520,10 +533,12 @@ ul {
     width: 1.5rem;
 }
 
+
 .editBtn{
     display: none;
     width: 1.5rem;
 }
+
 .paint {
     /*background-image: url(./img/heart.png);*/
     background-color: red;

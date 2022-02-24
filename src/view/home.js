@@ -1,4 +1,15 @@
-import { closeUserSession, addPost, realTimePosts, getDataUser, deletePost, likes, removeLikes } from '../firebase/firebaseFunciones.js'
+
+import {
+    closeUserSession,
+    addPost,
+    realTimePosts,
+    likes,
+    removeLikes,
+    getDataUser,
+    addComments,
+    deletePost
+} from '../firebase/firebaseFunciones.js'
+
 import { user } from '../firebase/config.js'
 import { templateFooter } from './footer.js'
 import { templateHeader } from './header.js'
@@ -39,9 +50,11 @@ export const home = () => {
         </div>
         <div class="iconos">
             <aside class="icons_iteration">
-                <img id='btn_give_like-${idDoc}' class='mark_like' data-like="${idDoc}" src="./img/like.png" alt="like">
-                <p class="counterlike">${lengthLike}</p>
-                <img src="" alt="coment">
+
+                <img id='btn_give_like' class='mark_like' src="./img/like.png" alt="like">
+                <p class="counterlike">${lengthLike.length}</p>
+                <img class='icono-coment' id='icono-coment' src="./img/comentar.png" alt="coment">
+
             </aside>
             <aside class="icons_iteration">
                 <img data-edit="${idDoc}"  class="editBtn" src="./img/editar.png" alt="edit">
@@ -49,7 +62,8 @@ export const home = () => {
             </aside>
         </div>
         <div class="coment">
-            <p></p>
+            <p id='name_user_coment' class='name_user_coment'></p>
+            <p class='insert_coment_user'></p>
             <input id="insert_coment" class="insert_coment" name="coment" type="text" placeholder="Añadir un comentario..."/>
             <button type="submit" class="btn-comentar" id="btn-comentar">
                 Publicar
@@ -75,7 +89,7 @@ export const home = () => {
                 }
             });
         });
-    
+
     //botón de publicar
     const publishButton = homePage.querySelector('#btn-publicar');
     publishButton.addEventListener('click', () => {
@@ -97,26 +111,34 @@ export const home = () => {
             const fechaPost = doc.data().publicationDate;
             const textoPost = doc.data().publishedText;
             const idUsuario = user().uid;
-            const identUsuario= doc.data().userIdent;
+            console.log(idUsuario)
             const cuentaLike = doc.data().likesPost;
-            const lengthLike= cuentaLike.length;
+            const lengthLike = cuentaLike.length;
+            console.log(lengthLike)
             const idDocumento = doc.id;
-            templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, identUsuario, lengthLike);
-    
-         /************likes a las publicaciones **************/
-         const btn_give_like = homePage.querySelectorAll('.mark_like');
-         //console.log(btn_give_like); //Selecciona todos los likes de todas las publicaciones, se crea un Nodelist [] OJO esta en 0
-         btn_give_like.forEach((like) => {
-             like.addEventListener('click', (e) => {
-                 console.log('diste click')
-                 const idPost = e.target.dataset.like;
-                 if (!e.target.classList.contains('paint')) {
-                     likes(idPost, idUsuario).fieldValue;
-                 } else {
-                     removeLikes(idPost, idUsuario).fieldValue;
-                 }
-             });
-         });
+
+            /* const btnHeart = (cuentaLike.indexOf(idUsuario) !== -1) ? 'paint' : '';
+            console.log(btnHeart) */
+
+            templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike, lengthLike);
+
+            /************likes a las publicaciones **************/
+            const btn_give_like = homePage.querySelectorAll('.mark_like');
+            btn_give_like.forEach((like) => {
+                like.addEventListener('click', (e) => {
+                    console.log('diste click')
+                    const idPost = doc.id;
+                    console.log(idPost)
+                    if (e.target.classList.contains('paint')) {
+                        removeLikes(idPost, idUsuario).FieldValue;
+                        e.target.classList.remove('paint')
+                        console.log("se quito el like");
+                    } else {
+                        likes(idPost, idUsuario).FieldValue;
+                        e.target.classList.add('paint')
+                        console.log("se dio like");
+                    }
+                });
 
         //mostrar botones de edicion y eliminar
         const edit = homePage.querySelectorAll('.editBtn');
@@ -146,19 +168,73 @@ export const home = () => {
             });
 
         });
-    });
-        /************Cerrar sesión Usuario**************/
-        const logOut = homePage.querySelector('#logOut');
-        logOut.addEventListener('click', () => {
-            closeUserSession()
-                .then(() => {
-                    console.log('El usuario ha cerrado sesión');
-                    window.location.hash = '#/';
+        /************Insertar comentario a las publicaciones **************/
+        /************Boton que abre input para insertar comentario**************/
+        const boton_insertComent = homePage.querySelectorAll('#icono-coment');
+        const input_coment = homePage.querySelectorAll('.coment');
+        const insert_comment_in_input = homePage.querySelectorAll('#btn-comentar');
+        /* console.log(input_coment);
+        console.log(boton_insertComent); */
+        boton_insertComent.forEach((coment) => {
+            coment.addEventListener('click', () => {
+                console.log('diste click en el icono de comentar')
+                input_coment.forEach((insertComent) => {
+                    console.log('ya puedes insertar un comentario')
+                    insertComent.style.display = 'inline';
+                    /************ Insertar comentario en la publicacion**********/
+                    insert_comment_in_input.forEach((input) => {
+                        input.addEventListener('click', () => {
+                            console.log('esta escribiendo...')
+                            const obtenerValueInput = insert_comment_in_input.value; //aqui selecciono el valor del input 
+                            console.log(obtenerValueInput)
+                            const insertComent = document.querySelector('.insert_coment_user'); // este es el espacio donde imprimire el comentario 
+                            insertComent.innerHTML = obtenerValueInput;
+                            addComments(obtenerValueInput, user().displayName, user().uid)
+                                .then(() => {
+                                    console.log('todo bien');
+                                })
+                                .catch((error) => {
+                                    console.log(error, 'todo mal');
+                                });
+                        })
+                    })
                 })
-                .catch((error) => {
-                    console.log(error, 'No se pudo cerrar la sesión');
+            })
+        })
+
+
+        //console.log(realTimePosts)
+
+        /************Insertar nombre de usuario y Foto**************/
+        const loginUsername = homePage.querySelector('#userName');
+        const photoUsername = homePage.querySelector('#photoURL');
+        getDataUser()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    if (user().uid === doc.data().IdUserActive) {
+                        loginUsername.textContent = doc.data().nameUser;
+                        photoUsername.src = doc.data().photoGmail;
+                    }
                 });
-        });
+            });
+    });
+
+
+
+    /************Cerrar sesión Usuario**************/
+    const logOut = homePage.querySelector('#logOut');
+    logOut.addEventListener('click', () => {
+        closeUserSession()
+            .then(() => {
+                console.log('El usuario ha cerrado sesión');
+                window.location.hash = '#/';
+            })
+            .catch((error) => {
+                console.log(error, 'No se pudo cerrar la sesión');
+            });
+    });
+
 
     return homePage;
 }
+

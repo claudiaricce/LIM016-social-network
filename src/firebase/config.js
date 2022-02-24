@@ -28,12 +28,11 @@ import {
     onSnapshot,
     query,
     orderBy,
+    arrayRemove,
+    arrayUnion,
+    updateDoc,
     doc,
     deleteDoc,
-    updateDoc,
-    arrayUnion,
-    arrayRemove,
-    
 } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js";
 
 
@@ -89,6 +88,9 @@ export {
     onSnapshot,
     query,
     orderBy,
+    arrayRemove,
+    arrayUnion,
+    updateDoc,
     doc,
     deleteDoc,
     updateDoc,
