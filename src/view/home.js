@@ -50,7 +50,7 @@ export const home = () => {
             <aside class="icons_iteration">
 
                 <img data-like="${idDoc}" id='btn_give_like' class='mark_like' src="./img/like.png" alt="like">
-                <p class="counterlike">${lengthLike.length}</p>
+                <p class="counterlike">${lengthLike}</p>
                 <img class='icono-coment' id='icono-coment' src="./img/comentar.png" alt="coment">
 
             </aside>
@@ -112,23 +112,9 @@ export const home = () => {
             const lengthLike = cuentaLike.length;
             const idDocumento = doc.id;
             const identUsuario= doc.data().userIdent;
-            console.log(idUsuario == identUsuario)
+            //console.log(idUsuario == identUsuario)
 
             templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, identUsuario, lengthLike,idUsuario);
-
-            //mostrar botones de edicion y eliminar
-            const edit = homePage.querySelectorAll('.editBtn');
-            const deleteBtn = homePage.querySelectorAll('.deleteBtn');
-            edit.forEach((img) => {
-                if (idUsuario === identUsuario) {
-                    img.style.display = "inline";
-                }
-            });
-            deleteBtn.forEach((img) => {
-                if (idUsuario === identUsuario) {
-                    img.style.display = "inline";
-                }
-            });
 
             //eliminar posts
             const btnDelete = homePage.querySelectorAll('.deleteBtn');
@@ -158,19 +144,6 @@ export const home = () => {
                     }
                 });
             });
-           
-            //eliminar posts
-            const btnDelete = homePage.querySelectorAll('.deleteBtn');
-            btnDelete.forEach((btn) => {
-             btn.addEventListener('click', (e) => {
-              const confirmar = window.confirm('¿Estás seguro de que deseas borrar este post?');
-              if (confirmar) {
-              deletePost(e.target.dataset.post);
-              //console.log(e.target.dataset.post)
-              }
-             });
-            });
-
     
         })
      })
