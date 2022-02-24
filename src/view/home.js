@@ -109,7 +109,6 @@ export const home = () => {
             const textoPost = doc.data().publishedText;
             const idUsuario = user().uid;
             const cuentaLike = doc.data().likesPost;
-            const identUsuario = doc.data().userIdent;
             const lengthLike = cuentaLike.length;
             const idDocumento = doc.id;
             const identUsuario= doc.data().userIdent;
