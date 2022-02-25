@@ -6,7 +6,9 @@ import {
     removeLikes,
     getDataUser,
     addComments,
-    deletePost
+    deletePost,
+    getPost,
+    editPost,
 } from '../firebase/firebaseFunciones.js'
 
 import { user } from '../firebase/config.js'
@@ -30,13 +32,14 @@ export const home = () => {
     <section id="insertPost">
     </section>`
 
-    function templatePost(photoUser, nameUser, datePost, postUser, idDoc, lengthLike, identUsuario, btnHeart) {
+    function templatePost(photoUser, nameUser, datePost, postUser, idDoc, lengthLike, identUsuario, btnHeart, idUsuario) {
+
         const publish = homePage.querySelector('#insertPost');
         publish.innerHTML +=
             `<div class="container_post">
         <div class="header_post">
             <aside class="title_post">
-                <h1 class="title">Publicado por: ${nameUser} </h1>
+                <h1 class="title">${nameUser} </h1>
                 <h4 class="date_hour">${datePost}</h4>
             </aside>
             <aside class="photo_perfil">
@@ -44,17 +47,19 @@ export const home = () => {
             </aside>
         </div>
         <div class="content_post">
-            <p>${postUser}</p>
+            <textarea id="publicacion-${idDoc}" class= "publicacion" readonly>${postUser}</textarea>
+            <button id="editar-${idDoc}" class="editar" data-edicion="${idDoc}">Guardar</button>
         </div>
         <div class="iconos">
             <aside class="icons_iteration">
                 <img data-like="${idDoc}" id='btn_give_like' class="${btnHeart}"  src="./img/heart.png">
                 <p class="counterlike">${lengthLike}</p>
                 <img data-coment="${idDoc}" class='icono-coment' id='icono-coment' src="./img/comentar.png" alt="coment">
+
             </aside>
             <aside class="icons_iteration">
-                <img data-edit="${idDoc}"  class="editBtn" src="./img/editar.png" alt="edit">
-                <img data-post="${idDoc}"  class="deleteBtn" src="./img/borrar.png" alt="delete" >
+                <img data-edit="${idDoc}" style="${idUsuario == identUsuario ? "display: block;" : "display: none;"}" class="editBtn" src="./img/editar.png" alt="edit">
+                <img data-post="${idDoc}" style="${idUsuario == identUsuario ? "display: block;" : "display: none;"}" class="deleteBtn" src="./img/borrar.png" alt="delete" >
             </aside>
         </div>
         <div class="coment">
@@ -108,16 +113,16 @@ export const home = () => {
             const idUsuario = user().uid;
             //console.log(idUsuario);
             const cuentaLike = doc.data().likesPost;
-            //console.log(cuentaLike);
-            const identUsuario = doc.data().userIdent;
             const lengthLike = cuentaLike.length;
             const idDocumento = doc.id;
+            const identUsuario= doc.data().userIdent;
+            //console.log(idUsuario == identUsuario)
 
             const btnHeart = (cuentaLike.indexOf(idUsuario) !== -1) ? 'paint' : 'mark_like';
             console.log(btnHeart)
 
-            templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, lengthLike, identUsuario, btnHeart);
-
+            templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, lengthLike, identUsuario, btnHeart, idUsuario);
+          
             //eliminar posts
             const btnDelete = homePage.querySelectorAll('.deleteBtn');
             btnDelete.forEach((btn) => {
@@ -144,22 +149,45 @@ export const home = () => {
                     }
                 });
             });
-        });
 
-        /************Cerrar sesión Usuario**************/
-        const logOut = homePage.querySelector('#logOut');
-        logOut.addEventListener('click', () => {
-            closeUserSession()
-                .then(() => {
-                    console.log('El usuario ha cerrado sesión');
-                    window.location.hash = '#/';
-                })
-                .catch((error) => {
-                    console.log(error, 'No se pudo cerrar la sesión');
-                });
+            //editar publicaciones
+            const iconEdit = homePage.querySelectorAll('.editBtn');
+            iconEdit.forEach((Edit) => {
+              Edit.addEventListener('click', (e) => {
+                const idPost = e.target.dataset.edit;
+                const publicacion = homePage.querySelector(`#publicacion-${idPost}`);
+                publicacion.readOnly = false;
+                const btnGuardar = homePage.querySelector(`#editar-${idPost}`);
+                btnGuardar.style.display = 'block';
+                getPost(idPost)
+                  .then((docu) => {
+                    const data = docu.data();
+                    publicacion.value = data.publishedText;
+                  });
+
+                btnGuardar.addEventListener('click', () => {
+                    const newText = homePage.querySelector(`#publicacion-${idPost}`).value;
+                    editPost(idPost, newText);
+                      
+                  });
+              });
+            });
+    
         });
+     });
+
+    /************Cerrar sesión Usuario**************/
+    const logOut = homePage.querySelector('#logOut');
+    logOut.addEventListener('click', () => {
+        closeUserSession()
+            .then(() => {
+                console.log('El usuario ha cerrado sesión');
+                window.location.hash = '#/';
+            })
+            .catch((error) => {
+                console.log(error, 'No se pudo cerrar la sesión');
+            });
     });
+
     return homePage;
 }
-
-

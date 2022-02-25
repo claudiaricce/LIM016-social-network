@@ -13,6 +13,7 @@ import {
     doc,
     collection,
     addDoc,
+    getDoc,
     getDocs,
     query,
     orderBy,
@@ -105,8 +106,8 @@ export const addPost = async (name, postText, photoURL, idUser) => {
     }
 };
 
-//obtener todos los posts
-export const getPosts = () => getDocs(query(collection(db, 'posts')));
+//obtener un post
+export const getPost = (id) => getDoc(doc(db, 'posts', id));
 
 //Obtener los posts en tiempo real
 export const realTimePosts = (callback) => {
@@ -140,3 +141,11 @@ export const addComments = async (postText, idUser) => {
 //borrar publicaciones
 export const deletePost = async (id) => await deleteDoc(doc(db, 'posts', id));
 
+//editar publicaciones
+export const editPost = (postId, newText) => {
+    const colRefId = doc(db, 'posts', postId);
+    return updateDoc(colRefId, {
+        publishedText: newText,
+        publicationDate: new Date().toLocaleString('en-ES'),
+    });
+  };

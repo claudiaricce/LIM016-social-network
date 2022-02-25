@@ -500,7 +500,7 @@ ul {
 .date_hour {
     font-size: 12px;
     color: rgb(141, 141, 158);
-    text-align: center;
+    text-align: left;
 }
 
 .content_post {
@@ -533,13 +533,11 @@ ul {
 }
 
 .deleteBtn {
-    display: none;
     width: 1.5rem;
 }
 
+.editBtn{
 
-.editBtn {
-    display: none;
     width: 1.5rem;
 }
 
@@ -551,3 +549,32 @@ ul {
     filter: grayscale(100%);
     width: 1.4rem;
 }
+
+.publicacion{
+    resize:none;
+    outline: none;
+    border: 0;
+    overflow:hidden;
+    background-color: transparent;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    
+}
+
+.editar{
+    display: none;
+    align-self: flex-end;
+    margin: 15px 10px 0 10px;
+    width: 17%;
+    padding: 5px 10px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: #184e77;
+    cursor: pointer;
+  }
+  
