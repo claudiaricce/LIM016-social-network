@@ -30,7 +30,7 @@ export const home = () => {
     <section id="insertPost">
     </section>`
 
-    function templatePost(photoUser, nameUser, datePost, postUser, idDoc, lengthLike) {
+    function templatePost(photoUser, nameUser, datePost, postUser, idDoc, lengthLike, identUsuario, btnHeart) {
         const publish = homePage.querySelector('#insertPost');
         publish.innerHTML +=
             `<div class="container_post">
@@ -48,11 +48,9 @@ export const home = () => {
         </div>
         <div class="iconos">
             <aside class="icons_iteration">
-
-                <img data-like="${idDoc}" id='btn_give_like' class='mark_like' src="./img/like.png" alt="like">
-                <p class="counterlike">${lengthLike.length}</p>
-                <img class='icono-coment' id='icono-coment' src="./img/comentar.png" alt="coment">
-
+                <img data-like="${idDoc}" id='btn_give_like' class="${btnHeart}"  src="./img/heart.png">
+                <p class="counterlike">${lengthLike}</p>
+                <img data-coment="${idDoc}" class='icono-coment' id='icono-coment' src="./img/comentar.png" alt="coment">
             </aside>
             <aside class="icons_iteration">
                 <img data-edit="${idDoc}"  class="editBtn" src="./img/editar.png" alt="edit">
@@ -62,7 +60,7 @@ export const home = () => {
         <div class="coment">
             <p id='name_user_coment' class='name_user_coment'></p>
             <p class='insert_coment_user'></p>
-            <input id="insert_coment" class="insert_coment" name="coment" type="text" placeholder="Añadir un comentario..."/>
+            <input data-coment="${idDoc}" id="insert_coment" class="insert_coment" name="coment" type="text" placeholder="Añadir un comentario..."/>
             <button type="submit" class="btn-comentar" id="btn-comentar">
                 Publicar
             </button>
@@ -108,30 +106,17 @@ export const home = () => {
             const fechaPost = doc.data().publicationDate;
             const textoPost = doc.data().publishedText;
             const idUsuario = user().uid;
+            //console.log(idUsuario);
             const cuentaLike = doc.data().likesPost;
+            //console.log(cuentaLike);
             const identUsuario = doc.data().userIdent;
             const lengthLike = cuentaLike.length;
-            console.log(lengthLike)
             const idDocumento = doc.id;
 
-            /* const btnHeart = (cuentaLike.indexOf(idUsuario) !== -1) ? 'paint' : '';
-            console.log(btnHeart) */
+            const btnHeart = (cuentaLike.indexOf(idUsuario) !== -1) ? 'paint' : 'mark_like';
+            console.log(btnHeart)
 
-            templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, cuentaLike, lengthLike);
-
-            //mostrar botones de edicion y eliminar
-            const edit = homePage.querySelectorAll('.editBtn');
-            const deleteBtn = homePage.querySelectorAll('.deleteBtn');
-            edit.forEach((img) => {
-                if (idUsuario === identUsuario) {
-                    img.style.display = "inline";
-                }
-            });
-            deleteBtn.forEach((img) => {
-                if (idUsuario === identUsuario) {
-                    img.style.display = "inline";
-                }
-            });
+            templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, lengthLike, identUsuario, btnHeart);
 
             //eliminar posts
             const btnDelete = homePage.querySelectorAll('.deleteBtn');
@@ -145,23 +130,20 @@ export const home = () => {
                 });
             });
             /************likes a las publicaciones **************/
-            const btn_give_like = homePage.querySelectorAll('.mark_like');
+            const btn_give_like = homePage.querySelectorAll('#btn_give_like');
             btn_give_like.forEach((like) => {
                 like.addEventListener('click', (e) => {
                     console.log('diste click')
                     const idPost = e.target.dataset.like;
                     if (e.target.classList.contains('paint')) {
                         removeLikes(idPost, idUsuario).FieldValue;
-                        e.target.classList.remove('paint')
                         console.log("se quito el like");
                     } else {
                         likes(idPost, idUsuario).FieldValue;
-                        e.target.classList.add('paint')
                         console.log("se dio like");
                     }
                 });
             });
-
         });
 
         /************Cerrar sesión Usuario**************/

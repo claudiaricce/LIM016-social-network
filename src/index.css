@@ -488,6 +488,10 @@ ul {
     color: rgb(85, 177, 219);
 }
 
+.comentarioAbierto {
+    display: inline;
+}
+
 .title {
     font-size: 15px;
     padding: 5px;
@@ -534,18 +538,16 @@ ul {
 }
 
 
-.editBtn{
+.editBtn {
     display: none;
     width: 1.5rem;
 }
 
 .paint {
-    /*background-image: url(./img/heart.png);*/
-    background-color: red;
     width: 1.4rem;
 }
 
 .mark_like {
-    background-image: url(./img/like.png);
+    filter: grayscale(100%);
     width: 1.4rem;
 }
