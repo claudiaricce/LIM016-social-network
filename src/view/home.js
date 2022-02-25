@@ -7,6 +7,8 @@ import {
     getDataUser,
     addComments,
     deletePost,
+    getPost,
+    editPost,
 } from '../firebase/firebaseFunciones.js'
 
 import { user } from '../firebase/config.js'
@@ -36,7 +38,7 @@ export const home = () => {
             `<div class="container_post">
         <div class="header_post">
             <aside class="title_post">
-                <h1 class="title">Publicado por: ${nameUser} </h1>
+                <h1 class="title">${nameUser} </h1>
                 <h4 class="date_hour">${datePost}</h4>
             </aside>
             <aside class="photo_perfil">
@@ -44,7 +46,8 @@ export const home = () => {
             </aside>
         </div>
         <div class="content_post">
-            <p>${postUser}</p>
+            <textarea id="publicacion-${idDoc}" class= "publicacion" readonly>${postUser}</textarea>
+            <button id="editar-${idDoc}" class="editar" data-edicion="${idDoc}">Guardar</button>
         </div>
         <div class="iconos">
             <aside class="icons_iteration">
@@ -144,9 +147,34 @@ export const home = () => {
                     }
                 });
             });
+            //editar publicaciones
+            const iconEdit = homePage.querySelectorAll('.editBtn');
+            iconEdit.forEach((Edit) => {
+              Edit.addEventListener('click', (e) => {
+                const idPost = e.target.dataset.edit;
+                const publicacion = homePage.querySelector(`#publicacion-${idPost}`);
+                publicacion.readOnly = false;
+                const btnGuardar = homePage.querySelector(`#editar-${idPost}`);
+                btnGuardar.style.display = 'block';
+                getPost(idPost)
+                  .then((docu) => {
+                    const data = docu.data();
+                    publicacion.value = data.publishedText;
+                  });
+
+                btnGuardar.addEventListener('click', () => {
+                    const newText = homePage.querySelector(`#publicacion-${idPost}`).value;
+                    editPost(idPost, newText);
+                      
+                  });
+              });
+            });
+
+
+
     
-        })
-     })
+        });
+     });
 
     /************Cerrar sesión Usuario**************/
     const logOut = homePage.querySelector('#logOut');
