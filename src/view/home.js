@@ -1,3 +1,7 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-console */
+/* eslint-disable indent */
 import {
     closeUserSession,
     addPost,
@@ -9,11 +13,11 @@ import {
     deletePost,
     getPost,
     editPost,
-} from '../firebase/firebaseFunciones.js'
+} from '../firebase/firebaseFunciones.js';
 
-import { user } from '../firebase/config.js'
-import { templateFooter } from './footer.js'
-import { templateHeader } from './header.js'
+import { user } from '../firebase/config.js';
+import { templateFooter } from './footer.js';
+import { templateHeader } from './header.js';
 
 export const home = () => {
     const templateHome = `
@@ -30,13 +34,17 @@ export const home = () => {
     </div>
     </section>
     <section id="insertPost">
-    </section>`
+    </section>`;
 
-    function templatePost(photoUser, nameUser, datePost, postUser, idDoc, lengthLike, identUsuario, btnHeart, idUsuario) {
+    const homePage = document.createElement('article');
+    homePage.classList.add('article-home');
+    homePage.innerHTML = templateHeader + templateHome + templateFooter;
 
+    function templatePost(photoUser, nameUser, datePost, postUser,
+        idDoc, lengthLike, identUsuario, btnHeart, idUsuario) {
         const publish = homePage.querySelector('#insertPost');
-        publish.innerHTML +=
-            `<div class="container_post">
+        publish.innerHTML
+            += `<div class="container_post">
         <div class="header_post">
             <aside class="title_post">
                 <h1 class="title">${nameUser} </h1>
@@ -58,8 +66,8 @@ export const home = () => {
 
             </aside>
             <aside class="icons_iteration">
-                <img data-edit="${idDoc}" style="${idUsuario == identUsuario ? "display: block;" : "display: none;"}" class="editBtn" src="./img/editar.png" alt="edit">
-                <img data-post="${idDoc}" style="${idUsuario == identUsuario ? "display: block;" : "display: none;"}" class="deleteBtn" src="./img/borrar.png" alt="delete" >
+                <img data-edit="${idDoc}" style="${idUsuario === identUsuario ? 'display: block;' : 'display: none;'}" class="editBtn" src="./img/editar.png" alt="edit">
+                <img data-post="${idDoc}" style="${idUsuario === identUsuario ? 'display: block;' : 'display: none;'}" class="deleteBtn" src="./img/borrar.png" alt="delete" >
             </aside>
         </div>
         <div id="openComment" class="coment-${idDoc}">
@@ -72,13 +80,9 @@ export const home = () => {
         </div>
     </div>`;
         return publish;
-    };
+    }
 
-    const homePage = document.createElement('article');
-    homePage.classList.add('article-home');
-    homePage.innerHTML = templateHeader + templateHome + templateFooter
-
-    /************Insertar nombre de usuario y Foto**************/
+    /** **********Insertar nombre de usuario y Foto************* */
     const loginUsername = homePage.querySelector('#userName');
     const photoUsername = homePage.querySelector('#photoURL');
     getDataUser()
@@ -91,7 +95,7 @@ export const home = () => {
             });
         });
 
-    /************botón de publicar************/
+    /** **********botón de publicar*********** */
     const publishButton = homePage.querySelector('#btn-publicar');
     publishButton.addEventListener('click', () => {
         const contentPost = document.querySelector('#insertarPublicacion');
@@ -101,7 +105,7 @@ export const home = () => {
         contentPost.value = '';
     });
 
-    /************ mostrar las publicaciones ************/
+    /** ********** mostrar las publicaciones *********** */
     const publish = homePage.querySelector('#insertPost');
     realTimePosts((querySnapshot) => {
         publish.innerHTML = '';
@@ -118,9 +122,10 @@ export const home = () => {
 
             const btnHeart = (cuentaLike.indexOf(idUsuario) !== -1) ? 'paint' : 'mark_like';
 
-            templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, lengthLike, identUsuario, btnHeart, idUsuario);
+            templatePost(fotoUser, nombreUser, fechaPost, textoPost,
+                idDocumento, lengthLike, identUsuario, btnHeart, idUsuario);
 
-            /************eliminar posts************/
+            /** **********eliminar posts*********** */
             const btnDelete = homePage.querySelectorAll('.deleteBtn');
             btnDelete.forEach((btn) => {
                 btn.addEventListener('click', (e) => {
@@ -130,9 +135,9 @@ export const home = () => {
                     }
                 });
             });
-            /************likes a las publicaciones **************/
-            const btn_give_like = homePage.querySelectorAll('#btn_give_like');
-            btn_give_like.forEach((like) => {
+            /** **********likes a las publicaciones ************* */
+            const btnGiveLike = homePage.querySelectorAll('#btn_give_like');
+            btnGiveLike.forEach((like) => {
                 like.addEventListener('click', (e) => {
                     const idPost = e.target.dataset.like;
                     if (e.target.classList.contains('paint')) {
@@ -142,35 +147,35 @@ export const home = () => {
                     }
                 });
             });
-            /************Insertar comentario a las publicaciones **************/
-            /************Boton que abre input para insertar comentario**************/
-            const boton_icono_coment = homePage.querySelectorAll('#icono-coment');
-            console.log(boton_icono_coment)
-            boton_icono_coment.forEach((open) => {
+            /** **********Insertar comentario a las publicaciones ************* */
+            /** **********Boton que abre input para insertar comentario************* */
+            const botonIconoComent = homePage.querySelectorAll('#icono-coment');
+            console.log(botonIconoComent);
+            botonIconoComent.forEach((open) => {
                 open.addEventListener('click', (e) => {
                     const idOpen = e.target.dataset.open;
-                    const add_Comment = homePage.querySelector(`.coment-${idOpen}`);
-                    add_Comment.style.display = "inline"
-                })
-            })
-
-            /************Crear colecciones de comentarios e insertar en la publicacion**************/
-            const boton_insertComent = homePage.querySelectorAll('#btn-comentar'); //icono de comentar 
-            boton_insertComent.forEach((coment) => {
-                coment.addEventListener('click', (e) => {
-                    const idComent = e.target.dataset.coment;
-                    console.log(idComent); //id del que le da publicar 
-                    const input_coment = homePage.querySelector(`#insert_coment-${idComent}`).value;
-                    console.log(input_coment) //el comentario escrito
-                    addComments(input_coment, user().uid)
-                    /************Insertar nombre de usuario y comentario**************/
-                    const insert_comment = homePage.querySelector(`.insert_coment_user-${idComent}`)
-                    console.log(insert_comment) //
-                    insert_comment.textContent = input_coment;
+                    const addComment = homePage.querySelector(`.coment-${idOpen}`);
+                    addComment.style.display = 'inline';
                 });
             });
 
-            /************editar publicaciones************/
+            /* ***********Comentarios************* */
+            const botonInsertComent = homePage.querySelectorAll('#btn-comentar'); // icono de comentar
+            botonInsertComent.forEach((coment) => {
+                coment.addEventListener('click', (e) => {
+                    const idComent = e.target.dataset.coment;
+                    console.log(idComent); // id del que le da publicar
+                    const inputComent = homePage.querySelector(`#insert_coment-${idComent}`).value;
+                    console.log(inputComent); // el comentario escrito
+                    addComments(inputComent, user().uid);
+                    /** **********Insertar nombre de usuario y comentario************* */
+                    const insertComment = homePage.querySelector(`.insert_coment_user-${idComent}`);
+                    console.log(insertComment); //
+                    insertComment.textContent = insertComment;
+                });
+            });
+
+            /** **********editar publicaciones*********** */
             const iconEdit = homePage.querySelectorAll('.editBtn');
             iconEdit.forEach((Edit) => {
                 Edit.addEventListener('click', (e) => {
@@ -188,15 +193,13 @@ export const home = () => {
                     btnGuardar.addEventListener('click', () => {
                         const newText = homePage.querySelector(`#publicacion-${idPost}`).value;
                         editPost(idPost, newText);
-
                     });
                 });
             });
         });
     });
 
-
-    /************Cerrar sesión Usuario**************/
+    /** **********Cerrar sesión Usuario************* */
     const logOut = homePage.querySelector('#logOut');
     logOut.addEventListener('click', () => {
         closeUserSession()
@@ -210,4 +213,4 @@ export const home = () => {
     });
 
     return homePage;
-}
+};
