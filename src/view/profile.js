@@ -1,15 +1,14 @@
-import { closeUserSession, getDataUser, editProfile, getEditProfile, realTimePosts } from "../firebase/firebaseFunciones.js"
-import { user } from "../firebase/config.js"
-import { templateFooter } from './footer.js'
-import { templateHeader } from './header.js'
-import { home } from './home.js'
-
-
-//import { storage, ref, uploadBytes } from '../firebase/config.js'
+/* eslint-disable indent */
+/* eslint-disable no-console */
+import {
+    closeUserSession, getDataUser, editProfile, getEditProfile,
+} from '../firebase/firebaseFunciones.js';
+import { user } from '../firebase/config.js';
+import { templateFooter } from './footer.js';
+import { templateHeader } from './header.js';
 
 export const profile = () => {
-    const templateprofile =
-        `<div class="userProfile">
+    const templateprofile = `<div class="userProfile">
         <form class="form-imgProfile"
         <label class="btn-file">
         <!--input type="file" name="uploadFile" id="uploadFile"-->
@@ -42,13 +41,13 @@ export const profile = () => {
             <input id="description" class="form-description" name="description" type="text" placeholder="Describete brevemente..."/> 
             <button id="btn-saveChanges" class="btn_register">Guardar Cambios</button>
         </div>
-    </div>`
+    </div>`;
 
     const profilePage = document.createElement('div');
     profilePage.classList.add('article-home');
-    profilePage.innerHTML = templateHeader + templateprofile + templateFooter
+    profilePage.innerHTML = templateHeader + templateprofile + templateFooter;
 
-    /************Insertar nombre de usuario**************/
+    /** **********Insertar nombre de usuario************* */
     const loginUsername = profilePage.querySelector('.nameRegister');
     const photoUsername = profilePage.querySelector('.perfil');
     const emailUsername = profilePage.querySelector('.emailRegister');
@@ -59,11 +58,11 @@ export const profile = () => {
                     loginUsername.textContent = doc.data().nameUser;
                     emailUsername.textContent = doc.data().emailUser;
                     photoUsername.src = doc.data().photoGmail;
-                };
+                }
             });
         });
 
-    /************Insertar descripcion en el perfil**************/
+    /** **********Insertar descripcion en el perfil************* */
     const descriptionProfile = profilePage.querySelector('#insert_description');
     getEditProfile()
         .then((querySnapshot) => {
@@ -72,29 +71,29 @@ export const profile = () => {
             });
         });
 
-    /************Boton que abre modal para editar perfil**************/
-    const boton_editProfile = profilePage.querySelector('#btn-editProfile');
-    boton_editProfile.addEventListener('click', () => {
-        const modal_editProfile = document.querySelector('.modal-containerEdit');
-        modal_editProfile.style.display = 'inline';
-    })
+    /** **********Boton que abre modal para editar perfil************* */
+    const botonEditProfile = profilePage.querySelector('#btn-editProfile');
+    botonEditProfile.addEventListener('click', () => {
+        const modalEditProfile = document.querySelector('.modal-containerEdit');
+        modalEditProfile.style.display = 'inline';
+    });
 
-    /************Evento del teclado para llenar Input**********/
-    const event_fill_input = profilePage.querySelector('.modal-containerEdit');
-    event_fill_input.addEventListener('keyup', () => {
-        const input_description = profilePage.querySelector('#description'); //este es input del formulario 
-        const obtenerValue = input_description.value; //aqui selecciono el valor del input 
-        const insertDescription = profilePage.querySelector('#insert_description'); // este es el espacio donde imprimire en el perfil 
-        insertDescription.innerHTML = obtenerValue; //aqui inserto en el perfil 
-    })
+    /** **********Evento del teclado para llenar Input********* */
+    const eventFillInput = profilePage.querySelector('.modal-containerEdit');
+    eventFillInput.addEventListener('keyup', () => {
+        const inputDescription = profilePage.querySelector('#description'); // este es input del formulario
+        const obtenerValue = inputDescription.value; // aqui selecciono el valor del input
+        const insertDescription = profilePage.querySelector('#insert_description'); // este es el espacio donde imprimire en el perfil
+        insertDescription.innerHTML = obtenerValue; // aqui inserto en el perfil
+    });
 
-    /************Boton que guarda los cambios y vuelve al perfil**********/
-    const boton_saveChanges = profilePage.querySelector('#btn-saveChanges');
-    boton_saveChanges.addEventListener('click', () => {
-        const modal_changes_Saved = document.querySelector('.modal-containerEdit');
-        modal_changes_Saved.style.display = 'none';
+    /** **********Boton que guarda los cambios y vuelve al perfil********* */
+    const botonSaveChanges = profilePage.querySelector('#btn-saveChanges');
+    botonSaveChanges.addEventListener('click', () => {
+        const modalChangesSaved = document.querySelector('.modal-containerEdit');
+        modalChangesSaved.style.display = 'none';
         const contentDescription = document.querySelector('#description').value;
-        //console.log(contentDescription);
+        // console.log(contentDescription);
         editProfile(contentDescription, user().displayName, user().uid)
             .then(() => {
                 console.log('todo bien');
@@ -102,9 +101,9 @@ export const profile = () => {
             .catch((error) => {
                 console.log(error, 'todo mal');
             });
-    })
+    });
 
-    /************Cerrar sesión Usuario**************/
+    /** **********Cerrar sesión Usuario************* */
     const logOutProfile = profilePage.querySelector('#logOut');
     logOutProfile.addEventListener('click', () => {
         closeUserSession()
@@ -117,9 +116,8 @@ export const profile = () => {
             });
     });
 
-    // mostrar las publicaciones 
-    const publishProfile = profilePage.querySelector('.user_posts');
-    //console.log(publishProfile)
+    // mostrar las publicaciones
+    /* const publishProfile = profilePage.querySelector('.user_posts');
     realTimePosts((querySnapshot) => {
         publishProfile.innerHTML = '';
         querySnapshot.forEach((doc) => {
@@ -132,16 +130,14 @@ export const profile = () => {
                 const cuentaLike = doc.data().likesPost;
                 const idDocumento = doc.id;
                 const btnHeart = (cuentaLike.indexOf(idUsuario) !== -1) ? 'painted' : '';
-                templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, idUsuario, btnHeart, cuentaLike.length);
+                templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, idUsuario,
+                    btnHeart, cuentaLike.length);
             } else {
                 console.log('fallooooo');
             }
         });
-    });
-    //console.log(realTimePosts)
+    }); */
+    // console.log(realTimePosts)
 
-
-    return profilePage
-}
-
-
+    return profilePage;
+};

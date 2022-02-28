@@ -99,6 +99,7 @@ export const addPost = async (name, postText, photoURL, idUser) => {
             publishedText: postText,
             publicationDate: new Date().toLocaleString('en-ES'),
             likesPost: [],
+            comments: [],
         });
         console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -116,7 +117,6 @@ export const realTimePosts = (callback) => {
     onSnapshot(q, callback);
 };
 
-
 //Dar likes a las publicaciones
 export const likes = async (id, idUserLike) => await updateDoc(doc(db, "posts", id), {
     likesPost: arrayUnion(idUserLike),
@@ -129,14 +129,17 @@ export const removeLikes = async (idPost, idUserLike) => await updateDoc(doc(db,
 
 /**** Crear colección cuando el usuario agrega un comentario */
 export const addComments = async (postText, idUser) => {
-    console.log(postText, idUser)
+    console.log(idUser, postText)
     const docRefComent = await addDoc(collection(db, "comments"), {
-        userIdent: idUser,
+        userIdentCom: idUser,
+        commentDate: new Date().toLocaleString('en-ES'),
         publishedComment: postText,
     });
     console.log("Document written with ID: ", docRefComent.id);
 };
 
+/****Obtener comentarios */
+export const getComment = (id) => getDoc(doc(db, 'comments', id));
 
 //borrar publicaciones
 export const deletePost = async (id) => await deleteDoc(doc(db, 'posts', id));
@@ -148,4 +151,4 @@ export const editPost = (postId, newText) => {
         publishedText: newText,
         publicationDate: new Date().toLocaleString('en-ES'),
     });
-  };
+};
