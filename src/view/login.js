@@ -1,6 +1,13 @@
+/* eslint-disable no-console */
+import {
+  loginApp,
+  signInGithub,
+  signInGoogle,
+  addUserGmail,
+} from '../firebase/firebaseFunciones.js';
 
-import { loginApp, signInGithub, signInGoogle, addUserGmail } from '../firebase/firebaseFunciones.js'
-import { GoogleAuthProvider, GithubAuthProvider } from '../firebase/config.js'
+import { GoogleAuthProvider, GithubAuthProvider } from '../firebase/config.js';
+
 export const login = () => {
   const templateLogin = `   
         <div id="Logo" class="containerLogin">
@@ -27,14 +34,13 @@ export const login = () => {
           <span class="link">¿Eres Nuevo aqui? <a id="linkRegister" href="#/register">Regístrate</a></span>
           </div>
         </form>      
-        `
+        `;
   const divLogin = document.createElement('div');
   divLogin.innerHTML = templateLogin;
 
-  const boton_SignIn = divLogin.querySelector('#btn2');
-  boton_SignIn.addEventListener('click', (e) => {
-    e.preventDefault()
-
+  const botonSignIn = divLogin.querySelector('#btn2');
+  botonSignIn.addEventListener('click', (e) => {
+    e.preventDefault();
 
     const emailSignIn2 = divLogin.querySelector('#email2').value;
     const passwordSignIn2 = divLogin.querySelector('#password2').value;
@@ -44,7 +50,7 @@ export const login = () => {
     loginApp(emailSignIn2, passwordSignIn2)
       .then((usuario) => {
         const userEmail = usuario.user.emailVerified;
-        //si el usuario verifico su correo lo dirige a la vista home
+        // si el usuario verifico su correo lo dirige a la vista home
         if (userEmail === true) {
           window.location.hash = '#/home';
           console.log('Usuario logueado');
@@ -54,10 +60,10 @@ export const login = () => {
           cleanForm.reset();
         }
       })
-      .catch(function (error) {
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        //Validaciones de los campos
+        // Validaciones de los campos
         if (emailSignIn2 === '' || passwordSignIn2 === '') {
           errorVerified.innerHTML = '✗ Debes completar todos los campos';
           cleanForm.reset();
@@ -74,17 +80,16 @@ export const login = () => {
           errorVerified.innerHTML = '✗ Contraseña incorrecta';
           cleanForm.reset();
         }
-        console.log(errorCode, errorMessage)
-
+        console.log(errorCode, errorMessage);
       });
   });
-  //boton que te lleva a vista de registro
+  // boton que te lleva a vista de registro
   const btnRegister = divLogin.querySelector('#linkRegister');
   btnRegister.addEventListener('click', () => {
     window.location.hash = '#/register';
   });
 
-  //boton para ingresar con google
+  // boton para ingresar con google
   const btnGoogle = divLogin.querySelector('#btn-google');
   btnGoogle.addEventListener('click', () => {
     signInGoogle()
@@ -94,10 +99,7 @@ export const login = () => {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        /*  console.log(credential);
-         console.log(token);
-         console.log(user); */
-
+        console.log(token);
         console.log('iniciaste sesion con google', user);
 
         addUserGmail(result.user)
@@ -105,7 +107,6 @@ export const login = () => {
             console.log('todo bien');
           })
           .catch((error) => {
-
             console.log(error, 'todo mal');
           });
         window.location.hash = '#/home';
@@ -125,7 +126,7 @@ export const login = () => {
       });
   });
 
-  //boton para ingresar con github
+  // boton para ingresar con github
   const btnGithub = divLogin.querySelector('#btn-github');
   btnGithub.addEventListener('click', () => {
     signInGithub()
