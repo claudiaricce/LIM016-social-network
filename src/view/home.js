@@ -54,7 +54,7 @@ export const home = () => {
             <aside class="icons_iteration">
                 <img data-like="${idDoc}" id='btn_give_like' class="${btnHeart}"  src="./img/heart.png">
                 <p class="counterlike">${lengthLike}</p>
-                <img data-coment="${idDoc}" class='icono-coment' id='icono-coment' src="./img/comentar.png" alt="coment">
+                <img data-open="${idDoc}" class='icono-coment' id='icono-coment' src="./img/comentar.png" alt="coment">
 
             </aside>
             <aside class="icons_iteration">
@@ -62,11 +62,11 @@ export const home = () => {
                 <img data-post="${idDoc}" style="${idUsuario == identUsuario ? "display: block;" : "display: none;"}" class="deleteBtn" src="./img/borrar.png" alt="delete" >
             </aside>
         </div>
-        <div class="coment">
-            <p id='name_user_coment' class='name_user_coment'></p>
-            <p class='insert_coment_user'></p>
-            <input data-coment="${idDoc}" id="insert_coment" class="insert_coment" name="coment" type="text" placeholder="Añadir un comentario..."/>
-            <button type="submit" class="btn-comentar" id="btn-comentar">
+        <div id="openComment" class="coment-${idDoc}">
+            <p id='name_user_coment-${idDoc}' class='name_user_coment'></p>
+            <p class='insert_coment_user-${idDoc}'></p>
+            <input  id="insert_coment-${idDoc}" class="insert_coment" name="coment" type="text" placeholder="Añadir un comentario..."/>
+            <button data-coment="${idDoc}" type="submit" class="btn-comentar" id="btn-comentar">
                 Publicar
             </button>
         </div>
@@ -91,7 +91,7 @@ export const home = () => {
             });
         });
 
-    //botón de publicar
+    /************botón de publicar************/
     const publishButton = homePage.querySelector('#btn-publicar');
     publishButton.addEventListener('click', () => {
         const contentPost = document.querySelector('#insertarPublicacion');
@@ -101,7 +101,7 @@ export const home = () => {
         contentPost.value = '';
     });
 
-    // mostrar las publicaciones 
+    /************ mostrar las publicaciones ************/
     const publish = homePage.querySelector('#insertPost');
     realTimePosts((querySnapshot) => {
         publish.innerHTML = '';
@@ -114,22 +114,19 @@ export const home = () => {
             const cuentaLike = doc.data().likesPost;
             const lengthLike = cuentaLike.length;
             const idDocumento = doc.id;
-            const identUsuario= doc.data().userIdent;
-            //console.log(idUsuario == identUsuario)
+            const identUsuario = doc.data().userIdent;
 
             const btnHeart = (cuentaLike.indexOf(idUsuario) !== -1) ? 'paint' : 'mark_like';
-            console.log(btnHeart)
 
             templatePost(fotoUser, nombreUser, fechaPost, textoPost, idDocumento, lengthLike, identUsuario, btnHeart, idUsuario);
-          
-            //eliminar posts
+
+            /************eliminar posts************/
             const btnDelete = homePage.querySelectorAll('.deleteBtn');
             btnDelete.forEach((btn) => {
                 btn.addEventListener('click', (e) => {
                     const confirmar = window.confirm('¿Estás seguro de que deseas borrar este post?');
                     if (confirmar) {
                         deletePost(e.target.dataset.post);
-                        //console.log(e.target.dataset.post)
                     }
                 });
             });
@@ -137,43 +134,67 @@ export const home = () => {
             const btn_give_like = homePage.querySelectorAll('#btn_give_like');
             btn_give_like.forEach((like) => {
                 like.addEventListener('click', (e) => {
-                    console.log('diste click')
                     const idPost = e.target.dataset.like;
                     if (e.target.classList.contains('paint')) {
                         removeLikes(idPost, idUsuario).FieldValue;
-                        console.log("se quito el like");
                     } else {
                         likes(idPost, idUsuario).FieldValue;
-                        console.log("se dio like");
                     }
                 });
             });
+            /************Insertar comentario a las publicaciones **************/
+            /************Boton que abre input para insertar comentario**************/
+            const boton_icono_coment = homePage.querySelectorAll('#icono-coment');
+            console.log(boton_icono_coment)
+            boton_icono_coment.forEach((open) => {
+                open.addEventListener('click', (e) => {
+                    const idOpen = e.target.dataset.open;
+                    const add_Comment = homePage.querySelector(`.coment-${idOpen}`);
+                    add_Comment.style.display = "inline"
+                })
+            })
 
-            //editar publicaciones
+            /************Crear colecciones de comentarios e insertar en la publicacion**************/
+            const boton_insertComent = homePage.querySelectorAll('#btn-comentar'); //icono de comentar 
+            boton_insertComent.forEach((coment) => {
+                coment.addEventListener('click', (e) => {
+                    const idComent = e.target.dataset.coment;
+                    console.log(idComent); //id del que le da publicar 
+                    const input_coment = homePage.querySelector(`#insert_coment-${idComent}`).value;
+                    console.log(input_coment) //el comentario escrito
+                    addComments(input_coment, user().uid)
+                    /************Insertar nombre de usuario y comentario**************/
+                    const insert_comment = homePage.querySelector(`.insert_coment_user-${idComent}`)
+                    console.log(insert_comment) //
+                    insert_comment.textContent = input_coment;
+                });
+            });
+
+            /************editar publicaciones************/
             const iconEdit = homePage.querySelectorAll('.editBtn');
             iconEdit.forEach((Edit) => {
-              Edit.addEventListener('click', (e) => {
-                const idPost = e.target.dataset.edit;
-                const publicacion = homePage.querySelector(`#publicacion-${idPost}`);
-                publicacion.readOnly = false;
-                const btnGuardar = homePage.querySelector(`#editar-${idPost}`);
-                btnGuardar.style.display = 'block';
-                getPost(idPost)
-                  .then((docu) => {
-                    const data = docu.data();
-                    publicacion.value = data.publishedText;
-                  });
+                Edit.addEventListener('click', (e) => {
+                    const idPost = e.target.dataset.edit;
+                    const publicacion = homePage.querySelector(`#publicacion-${idPost}`);
+                    publicacion.readOnly = false;
+                    const btnGuardar = homePage.querySelector(`#editar-${idPost}`);
+                    btnGuardar.style.display = 'block';
+                    getPost(idPost)
+                        .then((docu) => {
+                            const data = docu.data();
+                            publicacion.value = data.publishedText;
+                        });
 
-                btnGuardar.addEventListener('click', () => {
-                    const newText = homePage.querySelector(`#publicacion-${idPost}`).value;
-                    editPost(idPost, newText);
-                      
-                  });
-              });
+                    btnGuardar.addEventListener('click', () => {
+                        const newText = homePage.querySelector(`#publicacion-${idPost}`).value;
+                        editPost(idPost, newText);
+
+                    });
+                });
             });
-    
         });
-     });
+    });
+
 
     /************Cerrar sesión Usuario**************/
     const logOut = homePage.querySelector('#logOut');

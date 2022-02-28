@@ -459,7 +459,7 @@ ul {
     width: 100%;
 }
 
-.coment {
+#openComment {
     display: none;
 }
 
@@ -533,6 +533,7 @@ ul {
     width: 1.5rem;
 }
 
+
 .editBtn{
     width: 1.5rem;
 }
@@ -546,11 +547,11 @@ ul {
     width: 1.4rem;
 }
 
-.publicacion{
-    resize:none;
+.publicacion {
+    resize: none;
     outline: none;
     border: 0;
-    overflow:hidden;
+    overflow: hidden;
     background-color: transparent;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 15px;  
@@ -559,7 +560,7 @@ ul {
     width: 100%;
 }
 
-.editar{
+.editar {
     display: none;
     align-self: flex-start;
     margin: 0,8rem 0,6rem 0 10px;
@@ -571,9 +572,10 @@ ul {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     color: #ffffff;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     background: #184e77;
     cursor: pointer;
+
   }
 
   @media (min-width: 768px) {
