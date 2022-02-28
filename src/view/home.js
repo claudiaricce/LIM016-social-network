@@ -27,7 +27,7 @@ export const home = () => {
     <h5 class="userName" id="userName"></h5>
     </div>
     <div class="insertarPublicacion">
-        <input id="insertarPublicacion" class="inputInsertarPublicacion" name="insertarPublicacion" type="text" placeholder="¿Que quieres compartir?"/><br>
+        <textarea id="insertarPublicacion" class="inputInsertarPublicacion" name="insertarPublicacion" type="text" placeholder="¿Que quieres compartir?"></textarea><br>
         <button type="submit" class="btn-publicar" id="btn-publicar">
             Publicar
         </button>

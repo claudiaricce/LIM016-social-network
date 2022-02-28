@@ -36,7 +36,7 @@ export const profile = () => {
         </div>
         
         <!--Este es el modal para editar Perfil-->
-    <div class="modal-containerEdit" style="display: none">
+        <div class="modal-containerEdit" style="display: none">
         <div class="modal-editProfile">
             <input id="description" class="form-description" name="description" type="text" placeholder="Describete brevemente..."/> 
             <button id="btn-saveChanges" class="btn_register">Guardar Cambios</button>
