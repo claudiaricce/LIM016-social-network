@@ -8,7 +8,6 @@ export const templateHeader = `
      <a>
      <img id="logOut" class="cerrarSesion" src="../src/img/cerrarSesion.png" alt="Salir">
      </a>
- // eslint-disable-next-line semi
  </header>`;
 export const templateHeaderSimple = `
 <header class="headerSimple">
