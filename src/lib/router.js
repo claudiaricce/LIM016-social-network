@@ -1,4 +1,3 @@
-
 import { components } from '../view/components.js';
 
 const changeView = (route) => {
@@ -32,4 +31,4 @@ const changeView = (route) => {
       break;
   }
 };
-export { changeView }
+export { changeView };
