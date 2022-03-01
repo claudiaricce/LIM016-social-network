@@ -33,7 +33,7 @@ export const home = () => {
         </button>
     </div>
     </section>
-    <section id="insertPost">
+    <section id="insertPost" class="insertPost">
     </section>`;
 
     const homePage = document.createElement('article');

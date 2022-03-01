@@ -1,5 +1,5 @@
 // Importación de la app de firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js";
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js';
 import {
     getStorage,
     ref,
