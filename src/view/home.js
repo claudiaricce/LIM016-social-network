@@ -150,7 +150,6 @@ export const home = () => {
             /** **********Insertar comentario a las publicaciones ************* */
             /** **********Boton que abre input para insertar comentario************* */
             const botonIconoComent = homePage.querySelectorAll('#icono-coment');
-            console.log(botonIconoComent);
             botonIconoComent.forEach((open) => {
                 open.addEventListener('click', (e) => {
                     const idOpen = e.target.dataset.open;
