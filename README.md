@@ -1,16 +1,14 @@
 # GLOW APP ✨
 
 ## Índice
-# GLOW APP ✨
 
 * [1. DEFINICIÓN DEL PRODUCTO](#1-DEFINICIÓN-DEL-PRODUCTO)
 * [2. HISTORIAS DE USUARIO](#2-HISTORIAS-DE-USUARIO)
 * [3. PROTOTIPO DE BAJA FIDELIDAD](#3-PROTOTIPO-DE-BAJA-FIDELIDAD)
 * [4. PROTOTIPO DE ALTA FIDELIDAD](#4-PROTOTIPO-DE-ALTA-FIDELIDAD)
-* [5. TESTS](#5-TESTS)
-* [6. HERRAMIENTAS](#6-HERRAMIENTAS)
-* [7. CHECKLIST](#7-CHECKLIST)
-* [8. AUTORAS](#8-AUTORAS)
+* [5. HERRAMIENTAS](#5-HERRAMIENTAS)
+* [6. CHECKLIST](#6-CHECKLIST)
+* [7. AUTORAS](#7-AUTORAS)
 
 
 ## 1. DEFINICIÓN DE PRODUCTO 
@@ -40,54 +38,77 @@ Glow App tiene el objetivo de convertirse en una comunidad segura donde las muje
 
 ## 3. PROTOTIPO DE BAJA FIDELIDAD 
 
-  ## 📱 CELULAR
+  ### 📱 CELULAR
   
   ![image]()
   
-  ## 💻 ESCRITORIO
+  ### 💻 ESCRITORIO
   
   ![image]()
   
 ## 4. PROTOTIPO DE ALTA FIDELIDAD 
 
-  ## 📱 CELULAR
+  ### 📱 CELULAR
 
   ![image]()
 
-  ## 💻 ESCRITORIO
+  ### 💻 ESCRITORIO
 
   ![image]()
   
 ## 5. HERRAMIENTAS
 
   📌 GitBash
+
   📌 GitHub
+
   📌 GitHub Projects
+
   📌 Figma
+
   📌 JavaScript
+
   📌 HTML
+
   📌 CSS
+
   📌 Firebase
 
 ## 6. CHECKLIST 	
 
   ✔️ La aplicación es una Single Page Application (SPA)
+
   ✔️ Pasa eslint (`npm run eslint`) 
+
   ✔️ Pasa tests (`npm test`)
+
   ✔️ Pruebas unitarias cubren un mínimo del 70% de statements, functions, lines y branches.
+
   ✔️ Incluye _Definición del producto_ clara e informativa.
+
   ✔️ Incluye _sketch_ de la solución (prototipo de baja fidelidad).
+
   ✔️ Incluye _Diseño de la Interfaz de Usuario_ (prototipo de alta fidelidad).
+
   ✔️ Alterar y persistir datos usando firestore.
+
   ✔️ Sign in y Sign up con firebase
+
   ✔️ Autenticación con cuenta de correo y contraseña, y también con una cuenta de Google y GitHub.
+
   ✔️ Solamente se permite el acceso a usuarios con cuentas válidas.
+
   ✔️ Se puede publicar un post y se puede dar likes.
+
   ✔️ Se puede dar likes y hacer un conteo de estos.
+
   ✔️ Se puede eliminar y editar tus propios posts.
+
   ✔️ Se hicieron sesiones de testing de usabilidad con el app.
 
 ## 7. AUTORAS 
 
   📌 Claudia Ricce 
+
   📌 Naimerith Magdaleno
+
