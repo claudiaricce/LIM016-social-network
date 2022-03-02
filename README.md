@@ -40,21 +40,21 @@ Glow App tiene el objetivo de convertirse en una comunidad segura donde las muje
 
   ### 📱 CELULAR
   
-  ![image]()
+  ![image](https://github.com/claudiaricce/LIM016-social-network/blob/main/src/img/mobile%20baja%20fidelidad.jpg?raw=true)
   
   ### 💻 ESCRITORIO
   
-  ![image]()
+  ![image](https://github.com/claudiaricce/LIM016-social-network/blob/main/src/img/desktop%20baja%20fidelidad.jpg?raw=true)
   
 ## 4. PROTOTIPO DE ALTA FIDELIDAD 
 
   ### 📱 CELULAR
 
-  ![image]()
+  ![image](https://github.com/claudiaricce/LIM016-social-network/blob/main/src/img/mobile%20alta%20fidelidad.jpg?raw=true)
 
   ### 💻 ESCRITORIO
 
-  ![image]()
+  ![image](https://github.com/claudiaricce/LIM016-social-network/blob/main/src/img/desktop%20alta%20fidelidad.jpg?raw=true)
   
 ## 5. HERRAMIENTAS
 
