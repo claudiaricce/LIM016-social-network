@@ -2,13 +2,7 @@
 /* eslint-disable indent */
 
 // Importación de la app de firebase
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.5/firebase-app.js';
-import {
-    getStorage,
-    ref,
-    uploadBytes,
-    getDownloadURL,
-} from 'https://www.gstatic.com/firebasejs/9.6.5/firebase-storage.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
 
 // Importación de los metodos de firebase auth
 import {
@@ -20,7 +14,7 @@ import {
     GoogleAuthProvider,
     GithubAuthProvider,
     signOut,
-} from 'https://www.gstatic.com/firebasejs/9.6.5/firebase-auth.js';
+} from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
 
 import {
     getFirestore,
@@ -37,7 +31,7 @@ import {
     updateDoc,
     doc,
     deleteDoc,
-} from 'https://www.gstatic.com/firebasejs/9.6.5/firebase-firestore.js';
+} from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
 
 // La configuración de Firebase de tu aplicación web
 const firebaseConfig = {
@@ -53,9 +47,6 @@ export const app = initializeApp(firebaseConfig);
 
 // Inicializa Firebase Auth
 export const auth = getAuth(app);
-
-// Inicializa Firebase Storage
-export const storage = getStorage(app);
 
 // inicializa google con firebase app
 export const googleProvider = new GoogleAuthProvider(app);
@@ -96,11 +87,4 @@ export {
     updateDoc,
     doc,
     deleteDoc,
-};
-
-export {
-    getStorage,
-    ref,
-    uploadBytes,
-    getDownloadURL,
 };
