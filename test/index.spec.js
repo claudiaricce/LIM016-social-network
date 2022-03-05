@@ -3,10 +3,10 @@
 
 // Funciones de Firebase
 import {
-    //createUserWithEmailAndPassword,
+    createUserWithEmailAndPassword,
     //signInWithEmailAndPassword,
     //sendEmailVerification,
-} from '../src/firebase/config.js';
+} from '../src/firebase/__mocks__/mockfirebase';
 
 //Funciones que vamos a testear
 import {
@@ -23,4 +23,8 @@ describe('probar la función createUser', () => {
     it('Deberia ser una funcion', () => {
         expect(typeof createUser).toBe('function');
     });
+    it('Debería poder registrar a un usuario', () => createUser('marita@gmail.com', '12355687').then(() => {
+    expect(createUserWithEmailAndPassword.mock.calls[0][1]).toBe('marita@gmail.com');
+    expect(createUserWithEmailAndPassword.mock.calls[0][2]).toBe('12355687');
+  }));
 });
