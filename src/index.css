@@ -243,14 +243,17 @@ ul {
 .typePassword {
     background-image: url(../src/img/candado.png);
 }
+
 .typeEmail, .typePassword, .formularioIncorrecto, .formularioCorrecto {
     background-position: 15rem;
     background-size: 1.5rem;
     background-repeat: no-repeat;
 }
+
 .signUp {
     text-align: center;
 }
+
 .error-message, .error-message-input {
     font-size: 14px;
     font-weight: bold;
@@ -258,11 +261,13 @@ ul {
     padding-bottom: 10px;
     color: red;
 }
+
 .textPrivacidad, .link_login {
     font-weight: lighter;
     padding-bottom: 15px;
     color: #7b8586;
 }
+
 .btn_register, .modal-btn {
     width: 40% !important;
     padding: 2%;
@@ -272,6 +277,7 @@ ul {
     background-color: #D9AA71;
     border: 1px solid #645e55;
 }
+
 .btn_register:hover {
     content: "";
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
@@ -409,9 +415,10 @@ ul {
 }
 
 /****Estilos al home****/
-.homePage{
+.homePage {
     margin-top: 1rem;
 }
+
 .homePage, .header_post, .iconos, .icons_iteration {
     display: flex;
     justify-content: space-between;
@@ -420,7 +427,7 @@ ul {
 }
 
 .header_post {
-    background-color:#D9AA71;
+    background-color: #D9AA71;
     margin-top: 0px !important;
     border-radius: 10px;
 }
@@ -445,7 +452,7 @@ ul {
 
 .inputInsertarPublicacion {
     height: 6rem;
-    width:90%;
+    width: 90%;
     border-radius: 1rem;
     background-color: aliceblue;
     padding: 1rem;
@@ -531,7 +538,7 @@ ul {
 }
 
 
-.editBtn{
+.editBtn {
     width: 1.5rem;
 }
 
@@ -551,8 +558,8 @@ ul {
     overflow: hidden;
     background-color: transparent;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 15px;  
-    display: flex;  
+    font-size: 15px;
+    display: flex;
     height: 100%;
     width: 100%;
 }
@@ -560,7 +567,7 @@ ul {
 .editar {
     display: none;
     align-self: flex-start;
-    margin: 0,8rem 0,6rem 0 10px;
+    margin: 0, 8rem 0, 6rem 0 10px;
     width: 10%;
     padding: 5px 10px;
     border-radius: 10px;
@@ -573,15 +580,15 @@ ul {
     background: #184e77;
     cursor: pointer;
 
-  }
+}
 
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
 
     .homePage {
-        width:45%; 
-        float:left;
+        width: 45%;
+        float: left;
         flex-direction: column;
-        display:flex;
+        display: flex;
         align-items: center;
         margin-top: 3rem;
     }
@@ -593,26 +600,27 @@ ul {
         margin: 1%;
         margin-bottom: 2rem;
     }
-    
-    #photoURL{
+
+    #photoURL {
         height: max-content;
         width: max-content;
     }
 
-    #userName{
+    #userName {
         width: max-content;
-        margin-top: 1rem ;
+        margin-top: 1rem;
         font-size: 1.5rem;
         align-items: center;
         font-family: 'Redressed', cursive;
     }
+
     .insertarPublicacion {
         padding: 3%;
         width: 75%;
-        margin-top: 1rem ;
+        margin-top: 1rem;
     }
 
-    .fotoPerfil{
+    .fotoPerfil {
         width: max-content;
         padding: 3%;
         display: flex;
@@ -622,22 +630,23 @@ ul {
         margin-top: 1rem;
     }
 
-    .search{
+    .search {
         width: 95%;
     }
-    .containerLogin{
-        width:55%; 
-        float:left;
+
+    .containerLogin {
+        width: 55%;
+        float: left;
         flex-direction: column;
-        display:flex;
+        display: flex;
         align-items: center;
-        margin-top: 3rem; 
+        margin-top: 3rem;
     }
-   
-    .login{
+
+    .login {
         height: max-content;
-        width:40%; 
-        float:right; 
+        width: 40%;
+        float: right;
         margin: 2%;
         margin-top: 12rem;
     }
@@ -645,31 +654,37 @@ ul {
     .title_version {
         font-size: 2rem;
     }
-    .imagenFondo{
-        width:max-content; 
-        float:left;
+
+    .imagenFondo {
+        width: max-content;
+        float: left;
         align-items: center;
-        margin-top: 3rem; 
+        margin-top: 3rem;
     }
-    .title_register{
+
+    .title_register {
         font-size: 2rem;
     }
-    .signUp{
+
+    .signUp {
         height: max-content;
-        width:35%; 
-        float:right; 
+        width: 35%;
+        float: right;
         margin: 1%;
         margin-top: 5rem;
     }
+
     .typeText, .typeEmail, .typePassword {
         width: 65%;
     }
-    .headerSimple{
+
+    .headerSimple {
         justify-content: center !important;
     }
 
 
-  }
+}
+
 
   @media (min-width: 1024px){
 
@@ -677,54 +692,63 @@ ul {
         width:60%; 
         float:left;
         flex-direction: column;
-        display:flex;
+        display: flex;
         align-items: center;
-        margin-top: 3rem; 
+        margin-top: 3rem;
     }
-    .login{
+
+    .login {
         height: max-content;
-        width:35%; 
-        float:right; 
+        width: 35%;
+        float: right;
         margin: 1%;
         margin-top: 10rem;
     }
+
     .title_version {
         font-size: 2.5rem;
     }
-    .imagenFondo{
-        width:max-content; 
-        float:left;
+
+    .imagenFondo {
+        width: max-content;
+        float: left;
         align-items: center;
-        margin-top: 3rem; 
+        margin-top: 3rem;
     }
-    .title_register{
+
+    .title_register {
         font-size: 3rem;
     }
-    .signUp{
+
+    .signUp {
         height: max-content;
-        width:35%; 
-        float:right; 
+        width: 35%;
+        float: right;
         margin: 1%;
         margin-top: 7rem;
     }
+
     .typeText, .typeEmail, .typePassword {
         width: 65%;
     }
-    .headerSimple{
+
+    .headerSimple {
         justify-content: center !important;
     }
-    .userProfile,.btn-editProfile, .modal-containerEdit{
-        width:40%; 
-        float:left;
+
+    .userProfile, .btn-editProfile, .modal-containerEdit {
+        width: 40%;
+        float: left;
         flex-direction: column;
-        display:flex;
+        display: flex;
         align-items: center;
-        margin-top: 3rem; 
+        margin-top: 3rem;
         height: max-content;
     }
-    .title.profile{
-        width:60%; 
-        float:right;
+
+    .title.profile {
+        width: 60%;
+        float: right;
         flex-direction: column;
     }
 }
